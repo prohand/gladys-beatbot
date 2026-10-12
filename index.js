@@ -67,8 +67,8 @@ for (const [actionKey, handler] of Object.entries(SCENE_ACTIONS)) {
 // --- Dashboard widgets (Gladys 5.1+) -----------------------------------------
 for (const [widgetKey, widget] of Object.entries(WIDGETS)) {
   gladys.onWidgetGet(widgetKey, (request) => widget.get(service, request));
-  gladys.onWidgetAction(widgetKey, (actionKey, params, { settings }) =>
-    widget.action(service, { actionKey, params, settings }),
+  gladys.onWidgetAction(widgetKey, (actionKey, params, { settings, values }) =>
+    widget.action(service, { actionKey, params, settings, values }),
   );
 }
 

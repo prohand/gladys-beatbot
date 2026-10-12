@@ -10,7 +10,7 @@ import { readFile } from 'node:fs/promises';
 import { ACTIONS } from '../src/capabilities/actions.js';
 import { SCENE_ACTIONS } from '../src/capabilities/scenes.js';
 import { SCENE_TRIGGER_KEYS } from '../src/capabilities/triggers.js';
-import { WIDGETS } from '../src/capabilities/widget.js';
+import { FORM_ACTIONS, WIDGETS } from '../src/capabilities/widget.js';
 import { DEFAULT_CONFIG } from '../src/config.js';
 import {
   ERROR_LABELS,
@@ -70,6 +70,16 @@ test('catalog categories and capability fields require Gladys >= 5.1.0', () => {
   assert.ok(
     isAtLeast(minGladysVersion(), [5, 1, 0]),
     `got "${manifest.gladys_version}", 5.1.0 is the first release with the capability fields`,
+  );
+});
+
+test('widget button forms require Gladys >= 5.2.0', () => {
+  // An older core drops the `fields` of a widget action and relays the tap
+  // without `values`: the form would silently do nothing.
+  assert.ok(FORM_ACTIONS.length >= 1, 'the widget declares form actions');
+  assert.ok(
+    isAtLeast(minGladysVersion(), [5, 2, 0]),
+    `got "${manifest.gladys_version}", 5.2.0 is the first release relaying widget action values`,
   );
 });
 

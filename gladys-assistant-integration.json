@@ -8,7 +8,7 @@
   },
   "version": "1.0.0",
   "docker_image": "ghcr.io/prohand/gladys-beatbot:1.0.0",
-  "gladys_version": ">=5.1.0",
+  "gladys_version": ">=5.2.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-beatbot/main/cover.png",
   "categories": ["appliances"],
   "transports": ["cloud"],
@@ -716,8 +716,8 @@
         "fr": "Robot piscine"
       },
       "description": {
-        "en": "Battery, status, fault and Start / Pause / Return buttons.",
-        "fr": "Batterie, état, défaut et boutons Démarrer / Pause / Retour."
+        "en": "Battery, status, fault, Start / Pause / Return buttons and cleaning mode.",
+        "fr": "Batterie, état, défaut, boutons Démarrer / Pause / Retour et mode de nettoyage."
       },
       "icon": "droplet",
       "settings": [

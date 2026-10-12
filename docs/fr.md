@@ -96,6 +96,11 @@ Ajoutez le widget **Robot piscine** et choisissez le robot : il affiche la
 batterie en direct, l'état, le défaut en cours, la liaison, le mode et la durée
 du dernier nettoyage, avec les boutons **Démarrer**, **Pause** et **Retour**.
 
+Quand le robot permet de changer son mode de nettoyage, un bouton **Mode de
+nettoyage** ouvre un petit formulaire listant les modes de ce robot, pré-rempli
+avec le mode en cours : choisissez-en un et envoyez-le (Gladys 5.2 ou plus
+récent, requis par l'intégration).
+
 ## Dépannage
 
 - **« Cliquez sur Connecter… »** : aucun compte lié, ou l'autorisation a expiré
