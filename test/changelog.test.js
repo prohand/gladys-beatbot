@@ -46,6 +46,21 @@ test('a second release compares with the previous tag', () => {
   );
 });
 
+test('a mention of the heading in the intro text is not the section', () => {
+  const intro = base.replace(
+    '# Changelog\n',
+    '# Changelog\n\nDescribe each change under `## [Unreleased]` as you make it.\n',
+  );
+  const rolled = rollChangelog(intro, '1.0.0', '2026-10-12');
+  assert.match(rolled, /under `## \[Unreleased\]` as you make it\./);
+  assert.match(rolled, /## \[1\.0\.0\] - 2026-10-12\n\n### Added\n\n- Something new\./);
+});
+
+test('a version already in the changelog is not written twice', () => {
+  const once = rollChangelog(base, '1.0.0', '2026-10-12');
+  assert.equal(rollChangelog(once, '1.0.0', '2026-10-13'), once);
+});
+
 test('an empty Unreleased section still writes the version', () => {
   const empty = base.replace('### Added\n\n- Something new.\n', '');
   assert.match(rollChangelog(empty, '1.0.1', '2026-10-12'), /Maintenance release/);
