@@ -1,0 +1,34 @@
+# Changelog
+
+All notable changes to this integration are documented here. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
+[semantic versioning](https://semver.org/), bumped by the Release workflow.
+
+Describe each change under `## [Unreleased]` as you make it. The Release workflow
+moves that section under the version it ships, and the section becomes the notes
+of the version's GitHub Release.
+
+## [Unreleased]
+
+### Added
+
+- Beatbot account sign-in from the Configuration screen (OAuth2 with PKCE: the
+  password never goes through Gladys), with automatic region detection (Europe,
+  North America, Mainland China) and a manual override.
+- Every pool robot and cleaning base station of the account appears in Gladys:
+  state, cleaning on/off, return to base, battery, charging, cleaning mode,
+  child lock and "do not disturb", each one only when the robot offers it.
+- Real-time updates through the Beatbot event stream, with a periodic full
+  refresh to catch what a network outage missed.
+- Cloud / unreachable badge on every robot.
+- Scene triggers: robot status changed, cleaning finished (with its duration),
+  robot fault (stuck, basket full, motor fault…).
+- Scene actions: start, pause, return to base, set the cleaning mode.
+- "Pool robot" dashboard widget: battery, status, fault, link, mode, last
+  cleaning, and Start / Pause / Return buttons.
+- "Test the connection" button in the Configuration screen.
+- CI (format, lint, tests on Node 22 and 24, store checks, Docker build), UI
+  release workflow, GitHub Releases, Dependabot.
+- `SECURITY.md`, `CLAUDE.md` and the user documentation in English and French.
+
+[Unreleased]: https://github.com/prohand/gladys-beatbot/commits/main

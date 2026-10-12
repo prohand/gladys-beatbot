@@ -1,0 +1,738 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Beatbot",
+  "description": {
+    "en": "Control your Beatbot pool robots: status, battery, cleaning and alerts.",
+    "fr": "Pilotez vos robots piscine Beatbot : état, batterie, nettoyage et alertes."
+  },
+  "version": "0.0.0",
+  "docker_image": "ghcr.io/prohand/gladys-beatbot:0.0.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/prohand/gladys-beatbot/main/cover.png",
+  "categories": ["appliances"],
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Getting started",
+        "fr": "Pour commencer"
+      },
+      "description": {
+        "en": "Your robots must already work in the Beatbot app. Click Connect and sign in with your Beatbot account: Gladys then finds every pool robot of the account. Beatbot robots are reached through the Beatbot cloud only, Internet access is required.",
+        "fr": "Vos robots doivent déjà fonctionner dans l'application Beatbot. Cliquez sur Connecter et identifiez-vous avec votre compte Beatbot : Gladys retrouve alors tous les robots piscine du compte. Les robots Beatbot ne sont joignables que par le cloud Beatbot, un accès Internet est nécessaire."
+      },
+      "links": [
+        {
+          "url": "https://beatbot.com",
+          "label": {
+            "en": "Beatbot",
+            "fr": "Beatbot"
+          }
+        },
+        {
+          "url": "https://github.com/prohand/gladys-beatbot/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l'intégration"
+          }
+        }
+      ]
+    },
+    {
+      "key": "beatbot_account",
+      "type": "oauth2",
+      "label": {
+        "en": "Beatbot account",
+        "fr": "Compte Beatbot"
+      },
+      "description": {
+        "en": "Opens the Beatbot sign-in page. Your password never goes through Gladys.",
+        "fr": "Ouvre la page de connexion Beatbot. Votre mot de passe ne passe jamais par Gladys."
+      }
+    },
+    {
+      "key": "region",
+      "type": "select",
+      "label": {
+        "en": "Region",
+        "fr": "Région"
+      },
+      "description": {
+        "en": "Where your Beatbot account is hosted. Automatic reads it from the account: change it only if the connection status asks you to.",
+        "fr": "Où votre compte Beatbot est hébergé. Automatique le lit dans le compte : ne le changez que si l'état de connexion vous le demande."
+      },
+      "required": false,
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "fr": "Automatique"
+          }
+        },
+        {
+          "value": "eu",
+          "label": {
+            "en": "Europe",
+            "fr": "Europe"
+          }
+        },
+        {
+          "value": "na",
+          "label": {
+            "en": "North America",
+            "fr": "Amérique du Nord"
+          }
+        },
+        {
+          "value": "cn",
+          "label": {
+            "en": "Mainland China",
+            "fr": "Chine continentale"
+          }
+        }
+      ]
+    },
+    {
+      "key": "refresh_interval",
+      "type": "number",
+      "label": {
+        "en": "Full refresh (minutes)",
+        "fr": "Rafraîchissement complet (minutes)"
+      },
+      "description": {
+        "en": "States arrive in real time; this periodic full read only catches what a network outage made you miss.",
+        "fr": "Les états arrivent en temps réel ; cette lecture complète périodique rattrape seulement ce qu'une coupure réseau aurait fait manquer."
+      },
+      "placeholder": {
+        "en": "10",
+        "fr": "10"
+      },
+      "required": false,
+      "default": 10,
+      "min": 5,
+      "max": 60
+    },
+    {
+      "key": "client_id",
+      "type": "string",
+      "label": {
+        "en": "OAuth client ID (advanced)",
+        "fr": "Identifiant client OAuth (avancé)"
+      },
+      "description": {
+        "en": "Leave as is unless Beatbot gave you another client ID. Click Connect again after changing it.",
+        "fr": "Laissez tel quel, sauf si Beatbot vous a fourni un autre identifiant client. Cliquez à nouveau sur Connecter après l'avoir changé."
+      },
+      "placeholder": {
+        "en": "home-assistant",
+        "fr": "home-assistant"
+      },
+      "required": false,
+      "default": "home-assistant"
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion"
+      },
+      "timeout_seconds": 60
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "status_changed",
+      "label": {
+        "en": "Pool robot status changed",
+        "fr": "État du robot piscine modifié"
+      },
+      "description": {
+        "en": "The robot started, paused, returned, docked, charged or stopped.",
+        "fr": "Le robot a démarré, s'est mis en pause, est revenu, s'est amarré, charge ou s'est arrêté."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          }
+        },
+        {
+          "key": "status",
+          "type": "multi_select",
+          "label": {
+            "en": "New status",
+            "fr": "Nouvel état"
+          },
+          "options": [
+            {
+              "value": "stopped",
+              "label": {
+                "en": "Stopped",
+                "fr": "Arrêté"
+              }
+            },
+            {
+              "value": "cleaning",
+              "label": {
+                "en": "Cleaning",
+                "fr": "Nettoyage"
+              }
+            },
+            {
+              "value": "paused",
+              "label": {
+                "en": "Paused",
+                "fr": "En pause"
+              }
+            },
+            {
+              "value": "error",
+              "label": {
+                "en": "Error",
+                "fr": "Erreur"
+              }
+            },
+            {
+              "value": "returning",
+              "label": {
+                "en": "Returning",
+                "fr": "Retour en cours"
+              }
+            },
+            {
+              "value": "charging",
+              "label": {
+                "en": "Charging",
+                "fr": "En charge"
+              }
+            },
+            {
+              "value": "docked",
+              "label": {
+                "en": "Docked",
+                "fr": "À la base"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "status",
+          "type": "string",
+          "label": {
+            "en": "New status",
+            "fr": "Nouvel état"
+          }
+        },
+        {
+          "key": "previous_status",
+          "type": "string",
+          "label": {
+            "en": "Previous status",
+            "fr": "État précédent"
+          }
+        },
+        {
+          "key": "detail",
+          "type": "string",
+          "label": {
+            "en": "Detailed status",
+            "fr": "État détaillé"
+          }
+        }
+      ]
+    },
+    {
+      "key": "cleaning_finished",
+      "label": {
+        "en": "Pool cleaning finished",
+        "fr": "Nettoyage de la piscine terminé"
+      },
+      "description": {
+        "en": "A cleaning cycle ended normally (not on a fault).",
+        "fr": "Un cycle de nettoyage s'est terminé normalement (pas sur un défaut)."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "duration_minutes",
+          "type": "number",
+          "label": {
+            "en": "Duration (minutes)",
+            "fr": "Durée (minutes)"
+          }
+        },
+        {
+          "key": "battery",
+          "type": "number",
+          "label": {
+            "en": "Battery left (%)",
+            "fr": "Batterie restante (%)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "error_raised",
+      "label": {
+        "en": "Pool robot fault",
+        "fr": "Défaut du robot piscine"
+      },
+      "description": {
+        "en": "A fault appeared: stuck robot, full basket, motor fault…",
+        "fr": "Un défaut est apparu : robot coincé, panier plein, défaut moteur…"
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          }
+        },
+        {
+          "key": "error",
+          "type": "multi_select",
+          "label": {
+            "en": "Fault",
+            "fr": "Défaut"
+          },
+          "options": [
+            {
+              "value": "dust_box_full",
+              "label": {
+                "en": "Filter basket full",
+                "fr": "Panier filtrant plein"
+              }
+            },
+            {
+              "value": "dust_box_loss",
+              "label": {
+                "en": "Filter basket missing",
+                "fr": "Panier filtrant absent"
+              }
+            },
+            {
+              "value": "power_low",
+              "label": {
+                "en": "Battery low",
+                "fr": "Batterie faible"
+              }
+            },
+            {
+              "value": "power_cutting",
+              "label": {
+                "en": "Power cut",
+                "fr": "Coupure d'alimentation"
+              }
+            },
+            {
+              "value": "env_high_temperature",
+              "label": {
+                "en": "Water too hot",
+                "fr": "Eau trop chaude"
+              }
+            },
+            {
+              "value": "env_low_temperature",
+              "label": {
+                "en": "Water too cold",
+                "fr": "Eau trop froide"
+              }
+            },
+            {
+              "value": "motor_error",
+              "label": {
+                "en": "Motor fault",
+                "fr": "Défaut moteur"
+              }
+            },
+            {
+              "value": "motor_wheel_left",
+              "label": {
+                "en": "Left track motor fault",
+                "fr": "Défaut moteur chenille gauche"
+              }
+            },
+            {
+              "value": "motor_wheel_right",
+              "label": {
+                "en": "Right track motor fault",
+                "fr": "Défaut moteur chenille droite"
+              }
+            },
+            {
+              "value": "motor_thruster_left",
+              "label": {
+                "en": "Left thruster fault",
+                "fr": "Défaut propulseur gauche"
+              }
+            },
+            {
+              "value": "motor_thruster_right",
+              "label": {
+                "en": "Right thruster fault",
+                "fr": "Défaut propulseur droit"
+              }
+            },
+            {
+              "value": "motor_pump",
+              "label": {
+                "en": "Pump motor fault",
+                "fr": "Défaut moteur de pompe"
+              }
+            },
+            {
+              "value": "motor_airpump_left",
+              "label": {
+                "en": "Left air pump fault",
+                "fr": "Défaut pompe à air gauche"
+              }
+            },
+            {
+              "value": "motor_airpump_right",
+              "label": {
+                "en": "Right air pump fault",
+                "fr": "Défaut pompe à air droite"
+              }
+            },
+            {
+              "value": "motor_brush",
+              "label": {
+                "en": "Brush motor fault",
+                "fr": "Défaut moteur de brosse"
+              }
+            },
+            {
+              "value": "motor_reagent",
+              "label": {
+                "en": "Clarifier dispenser fault",
+                "fr": "Défaut du diffuseur de clarifiant"
+              }
+            },
+            {
+              "value": "motor_rod",
+              "label": {
+                "en": "Rod motor fault",
+                "fr": "Défaut moteur de tige"
+              }
+            },
+            {
+              "value": "enter_shawdow_water_error",
+              "label": {
+                "en": "Shallow water",
+                "fr": "Eau trop peu profonde"
+              }
+            },
+            {
+              "value": "trapped",
+              "label": {
+                "en": "Robot stuck",
+                "fr": "Robot coincé"
+              }
+            },
+            {
+              "value": "charge_high_temperature",
+              "label": {
+                "en": "Charging too hot",
+                "fr": "Charge : trop chaud"
+              }
+            },
+            {
+              "value": "charge_low_temperature",
+              "label": {
+                "en": "Charging too cold",
+                "fr": "Charge : trop froid"
+              }
+            },
+            {
+              "value": "motor_thruster",
+              "label": {
+                "en": "Thruster fault",
+                "fr": "Défaut propulseur"
+              }
+            },
+            {
+              "value": "platform_clean_err",
+              "label": {
+                "en": "Platform cleaning fault",
+                "fr": "Défaut nettoyage plateforme"
+              }
+            },
+            {
+              "value": "self_err_spray",
+              "label": {
+                "en": "Station: spray fault",
+                "fr": "Station : défaut de pulvérisation"
+              }
+            },
+            {
+              "value": "self_err_lever",
+              "label": {
+                "en": "Station: lever fault",
+                "fr": "Station : défaut du levier"
+              }
+            },
+            {
+              "value": "self_err_pusher",
+              "label": {
+                "en": "Station: pusher fault",
+                "fr": "Station : défaut du poussoir"
+              }
+            },
+            {
+              "value": "self_err_clean_conflict",
+              "label": {
+                "en": "Station: cleaning conflict",
+                "fr": "Station : conflit de nettoyage"
+              }
+            },
+            {
+              "value": "err_dust_not_install",
+              "label": {
+                "en": "Station: bin missing",
+                "fr": "Station : bac absent"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "error",
+          "type": "string",
+          "label": {
+            "en": "Fault code",
+            "fr": "Code du défaut"
+          }
+        },
+        {
+          "key": "label_en",
+          "type": "string",
+          "label": {
+            "en": "Fault (English)",
+            "fr": "Défaut (anglais)"
+          }
+        },
+        {
+          "key": "label_fr",
+          "type": "string",
+          "label": {
+            "en": "Fault (French)",
+            "fr": "Défaut (français)"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "start_cleaning",
+      "label": {
+        "en": "Start pool cleaning",
+        "fr": "Démarrer le nettoyage de la piscine"
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "sent",
+          "type": "boolean",
+          "label": {
+            "en": "Order sent",
+            "fr": "Ordre envoyé"
+          },
+          "description": {
+            "en": "False when the robot does not offer this order.",
+            "fr": "Faux quand le robot ne propose pas cet ordre."
+          }
+        }
+      ]
+    },
+    {
+      "key": "pause_cleaning",
+      "label": {
+        "en": "Pause pool cleaning",
+        "fr": "Mettre en pause le nettoyage"
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "sent",
+          "type": "boolean",
+          "label": {
+            "en": "Order sent",
+            "fr": "Ordre envoyé"
+          },
+          "description": {
+            "en": "False when the robot does not offer this order.",
+            "fr": "Faux quand le robot ne propose pas cet ordre."
+          }
+        }
+      ]
+    },
+    {
+      "key": "return_to_base",
+      "label": {
+        "en": "Send the pool robot back",
+        "fr": "Faire revenir le robot piscine"
+      },
+      "description": {
+        "en": "The robot comes back to its base, or to the waterline for pickup.",
+        "fr": "Le robot revient à sa base, ou à la ligne d’eau pour être récupéré."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "sent",
+          "type": "boolean",
+          "label": {
+            "en": "Order sent",
+            "fr": "Ordre envoyé"
+          },
+          "description": {
+            "en": "False when the robot does not offer this order.",
+            "fr": "Faux quand le robot ne propose pas cet ordre."
+          }
+        }
+      ]
+    },
+    {
+      "key": "set_cleaning_mode",
+      "label": {
+        "en": "Set the cleaning mode",
+        "fr": "Choisir le mode de nettoyage"
+      },
+      "description": {
+        "en": "Mode name as shown on the device in Gladys (e.g. a floor or wall mode).",
+        "fr": "Nom du mode tel qu'affiché sur l'appareil dans Gladys (par exemple un mode fond ou parois)."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          },
+          "required": true
+        },
+        {
+          "key": "mode",
+          "type": "string",
+          "label": {
+            "en": "Mode",
+            "fr": "Mode"
+          },
+          "placeholder": {
+            "en": "Mode name",
+            "fr": "Nom du mode"
+          },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "sent",
+          "type": "boolean",
+          "label": {
+            "en": "Order sent",
+            "fr": "Ordre envoyé"
+          },
+          "description": {
+            "en": "False when the robot does not offer this order.",
+            "fr": "Faux quand le robot ne propose pas cet ordre."
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "pool_robot",
+      "label": {
+        "en": "Pool robot",
+        "fr": "Robot piscine"
+      },
+      "description": {
+        "en": "Battery, status, fault and Start / Pause / Return buttons.",
+        "fr": "Batterie, état, défaut et boutons Démarrer / Pause / Retour."
+      },
+      "icon": "droplet",
+      "settings": [
+        {
+          "key": "robot",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Robot",
+            "fr": "Robot"
+          },
+          "required": true
+        }
+      ],
+      "action_timeout_seconds": 30
+    }
+  ]
+}
