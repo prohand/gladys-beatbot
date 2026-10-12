@@ -4,7 +4,11 @@ All notable changes to this integration are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [semantic versioning](https://semver.org/), bumped by the Release workflow.
 
-Describe each change under `## [Unreleased]` as you make it. The Release workflow
+Describe each change under `## [Unreleased]
+
+## [1.0.0] - 2026-10-12
+
+` as you make it. The Release workflow
 moves that section under the version it ships, and the section becomes the notes
 of the version's GitHub Release.
 
@@ -31,4 +35,5 @@ of the version's GitHub Release.
   release workflow, GitHub Releases, Dependabot.
 - `SECURITY.md`, `CLAUDE.md` and the user documentation in English and French.
 
-[Unreleased]: https://github.com/prohand/gladys-beatbot/commits/main
+[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/prohand/gladys-beatbot/releases/tag/v1.0.0
