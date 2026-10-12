@@ -11,7 +11,11 @@
 //     last cleaning), nudged with requestWidgetRefresh on every change;
 //   - Start / Pause / Return buttons, reaching onWidgetAction with the
 //     `params` declared HERE (never user input: a dashboard can hang on a
-//     public wall).
+//     public wall);
+//   - a "Cleaning mode" button opening a form (Gladys 5.2+): one `select`
+//     whose options are the modes THIS robot advertises, written at content
+//     time (an action field takes no `source`). The core validates the chosen
+//     value against those options before relaying it as `values`.
 // -----------------------------------------------------------------------------
 
 import { createLogger, WIDGET_COLORS } from '@gladysassistant/integration-sdk';
@@ -37,6 +41,15 @@ const WIDGET_ACTIONS = {
   pause: INTERFACE.PAUSE,
   return_to_base: INTERFACE.RETURN_TO_BASE,
 };
+
+// Button actions opening a form (`fields`): Gladys 5.2 is the first core that
+// relays their `values`. test/manifest.test.js ties this list to the
+// manifest `gladys_version`.
+export const FORM_ACTIONS = ['set_cleaning_mode'];
+
+// The core cuts an option label past 40 characters: cut it here, so a long
+// cloud label never reaches the card half-truncated by somebody else.
+const OPTION_LABEL_MAX = 40;
 
 const STATUS_COLORS = {
   cleaning: WIDGET_COLORS.SUCCESS,
@@ -151,12 +164,77 @@ export function buildPoolRobotContent(service, externalId) {
       button('return_to_base', { en: 'Return', fr: 'Retour' }, 'corner-down-left', 'secondary'),
     );
   }
+  // Same rule as the device feature: offered only when the cloud advertises
+  // the mode as controllable. At most three buttons in all, under the four
+  // the core renders.
+  if (model.workModeOptions?.size && canControl(model, INTERFACE.WORK_MODE)) {
+    components.push(cleaningModeButton(externalId, model));
+  }
 
   return {
     // The computed rows are nudged on every change (requestWidgetRefresh):
     // the TTL is only a safety net.
     ttl_seconds: 300,
     components,
+  };
+}
+
+/**
+ * The "Cleaning mode" button: its form lists the modes of THIS robot, in the
+ * cloud's order, pre-filled with the current one. The cloud sets a mode by its
+ * label, so the label is the option value, as on the device feature.
+ */
+function cleaningModeButton(externalId, model) {
+  const labels = [...model.workModeOptions.entries()]
+    .sort(([a], [b]) => a - b)
+    .map(([, label]) => label)
+    .filter((label) => typeof label === 'string' && label.length > 0);
+  const current = model.workModeOptions.get(model.workMode);
+  const field = {
+    key: 'mode',
+    type: 'select',
+    required: true,
+    label: { en: 'Cleaning mode', fr: 'Mode de nettoyage' },
+    options: labels.map((label) => {
+      const text = label.slice(0, OPTION_LABEL_MAX);
+      return { value: label, label: { en: text, fr: text } };
+    }),
+  };
+  if (labels.includes(current)) {
+    field.default = current;
+  }
+  return {
+    type: 'button',
+    label: { en: 'Cleaning mode', fr: 'Mode de nettoyage' },
+    icon: 'sliders',
+    style: 'secondary',
+    action: { key: 'set_cleaning_mode', params: { device: externalId }, fields: [field] },
+  };
+}
+
+/**
+ * The form of "Cleaning mode": the same path as the `set_cleaning_mode` scene
+ * action (service.runWorkMode), which matches the label against the modes the
+ * robot advertises and refuses an uncontrollable mode.
+ */
+async function setCleaningMode(service, params, values) {
+  // A core older than 5.2 drops the form and relays the tap without
+  // `values`: there is no mode to set, and guessing one would move the robot.
+  if (typeof values?.mode !== 'string' || values.mode.length === 0) {
+    return {
+      en: 'Choose the mode in the form of the button (Gladys 5.2 or later).',
+      fr: 'Choisissez le mode dans le formulaire du bouton (Gladys 5.2 ou plus récent).',
+    };
+  }
+  if (!(await service.runWorkMode(params?.device, values.mode))) {
+    return {
+      en: 'This robot does not accept that cleaning mode.',
+      fr: "Ce robot n'accepte pas ce mode de nettoyage.",
+    };
+  }
+  return {
+    en: `Cleaning mode set to ${values.mode}.`,
+    fr: `Mode de nettoyage réglé sur ${values.mode}.`,
   };
 }
 
@@ -168,8 +246,11 @@ export const WIDGETS = {
     },
 
     // Resolve a toast; throwing reports the failure to the user.
-    async action(service, { actionKey, params }) {
+    async action(service, { actionKey, params, values }) {
       logger.info(`onWidgetAction <- ${POOL_ROBOT_WIDGET}.${actionKey}`);
+      if (actionKey === 'set_cleaning_mode') {
+        return setCleaningMode(service, params, values);
+      }
       const interfaceInfo = WIDGET_ACTIONS[actionKey];
       if (!interfaceInfo) {
         throw new Error(`Unknown widget action: ${actionKey}`);

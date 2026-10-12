@@ -10,10 +10,21 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Added
+
+- "Pool robot" widget: a **Cleaning mode** button opens a form listing the
+  modes of the robot, when the robot lets its mode be changed.
+
 ### Fixed
 
 - The release script no longer takes the mention of the Unreleased heading in
   the changelog intro for the section itself: the 1.0.0 notes were left empty.
+
+### Changed
+
+- `@gladysassistant/integration-sdk` updated to 0.15.0.
+- Requires Gladys 5.2.0 (the first release relaying the values of a widget
+  button form).
 
 ## [1.0.0] - 2026-10-12
 

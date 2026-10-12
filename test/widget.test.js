@@ -50,6 +50,7 @@ test('the buttons follow the robot: Start when idle, Pause when cleaning', async
   assert.deepEqual(buttons(await widget.get(service, { settings: { robot: DEVICE } })), [
     'start',
     'return_to_base',
+    'set_cleaning_mode',
   ]);
   model.workStatus = 5;
   model.errorCode = 1 << 18;
@@ -57,7 +58,7 @@ test('the buttons follow the robot: Start when idle, Pause when cleaning', async
   assert.deepEqual(validateWidgetContent(content), []);
   model.errorCode = 0;
   content = await widget.get(service, { settings: { robot: DEVICE } });
-  assert.deepEqual(buttons(content), ['pause', 'return_to_base']);
+  assert.deepEqual(buttons(content), ['pause', 'return_to_base', 'set_cleaning_mode']);
   for (const key of buttons(content)) {
     const button = content.components.find((c) => c.action?.key === key);
     assert.deepEqual(button.action.params, { device: DEVICE });
@@ -80,6 +81,70 @@ test('a tapped button sends the order and answers a toast', async () => {
     widget.action(service, { actionKey: 'self_destruct', params: { device: DEVICE } }),
     /Unknown widget action/,
   );
+  service.stop();
+});
+
+test('the Cleaning mode button lists the advertised modes, pre-filled with the current one', async () => {
+  const { service } = await startedService();
+  const content = await widget.get(service, { settings: { robot: DEVICE } });
+  assert.deepEqual(validateWidgetContent(content), []);
+  const button = content.components.find((c) => c.action?.key === 'set_cleaning_mode');
+  assert.deepEqual(button.action.params, { device: DEVICE });
+  const [field] = button.action.fields;
+  assert.equal(field.type, 'select');
+  assert.equal(field.required, true);
+  assert.deepEqual(
+    field.options.map((option) => option.value),
+    ['Floor', 'Walls', 'Waterline'],
+  );
+  assert.equal(field.default, 'Floor');
+  assert.ok(content.components.filter((c) => c.type === 'button').length <= 4);
+  service.stop();
+});
+
+test('no Cleaning mode button when the cloud reports the mode as not controllable', async () => {
+  const { service } = await startedService();
+  const model = service.modelOf(DEVICE);
+  model.capabilities['select.work_mode'].nonControllable = true;
+  const content = await widget.get(service, { settings: { robot: DEVICE } });
+  assert.ok(!buttons(content).includes('set_cleaning_mode'));
+  service.stop();
+});
+
+test('the Cleaning mode form sets the mode through the scene action path', async () => {
+  const { service, cloud } = await startedService();
+  const toast = await widget.action(service, {
+    actionKey: 'set_cleaning_mode',
+    params: { device: DEVICE },
+    values: { mode: 'Walls' },
+  });
+  assert.equal(toast.en, 'Cleaning mode set to Walls.');
+  assert.equal(service.modelOf(DEVICE).workMode, 1, 'the new mode is reflected at once');
+  assert.deepEqual(cloud.actions.at(-1), {
+    deviceId: 'dev-1',
+    interfaceInfo: 'select.work_mode',
+    label: 'Walls',
+  });
+
+  const refused = await widget.action(service, {
+    actionKey: 'set_cleaning_mode',
+    params: { device: DEVICE },
+    values: { mode: 'Turbo' },
+  });
+  assert.match(refused.en, /does not accept that cleaning mode/);
+  service.stop();
+});
+
+test('a tap relayed without values (core older than 5.2) changes nothing', async () => {
+  const { service } = await startedService();
+  const before = service.modelOf(DEVICE).workMode;
+  const toast = await widget.action(service, {
+    actionKey: 'set_cleaning_mode',
+    params: { device: DEVICE },
+  });
+  assert.match(toast.en, /Gladys 5\.2/);
+  assert.ok(toast.fr);
+  assert.equal(service.modelOf(DEVICE).workMode, before);
   service.stop();
 });
 

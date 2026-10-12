@@ -93,6 +93,10 @@ Add the **Pool robot** widget and pick the robot: it shows the live battery,
 the status, the current fault, the link, the mode and how long the last
 cleaning took, with **Start**, **Pause** and **Return** buttons.
 
+When the robot lets its cleaning mode be changed, a **Cleaning mode** button
+opens a small form listing the modes of that robot, pre-filled with the current
+one: pick one and send it (Gladys 5.2 or later, required by the integration).
+
 ## Troubleshooting
 
 - **"Click Connect…"**: no account linked, or the authorization expired or was

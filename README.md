@@ -7,7 +7,8 @@ through the Beatbot cloud. Built on the official
 [`@gladysassistant/integration-sdk`](https://github.com/GladysAssistant/integration-sdk-js).
 
 - **Transport: cloud only** (`"transports": ["cloud"]`) — Beatbot robots have no local API.
-- **Requires Gladys ≥ 5.1.0** (scene triggers, scene actions and dashboard widget).
+- **Requires Gladys ≥ 5.2.0** (scene triggers, scene actions, dashboard widget, and the form
+  of its Cleaning mode button).
 - User documentation: [English](docs/en.md) · [Français](docs/fr.md).
 
 ## Features
@@ -20,7 +21,7 @@ through the Beatbot cloud. Built on the official
 | Transport badge       | `cloud` when the robot is online, `unreachable` otherwise                                                                                                             |
 | Scene triggers        | `status_changed`, `cleaning_finished` (with its duration), `error_raised` (stuck, basket full, motor fault…)                                                          |
 | Scene actions         | `start_cleaning`, `pause_cleaning`, `return_to_base`, `set_cleaning_mode` (output `sent`)                                                                             |
-| Dashboard widget      | `pool_robot`: live battery, status, fault, link, mode, last cleaning, Start / Pause / Return buttons                                                                  |
+| Dashboard widget      | `pool_robot`: live battery, status, fault, link, mode, last cleaning, Start / Pause / Return buttons, Cleaning mode form (the robot's own modes)                      |
 | Configuration actions | `test_connection`: lists the robots of the account with their status                                                                                                  |
 
 ## How it talks to Beatbot
