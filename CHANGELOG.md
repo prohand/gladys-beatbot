@@ -15,6 +15,10 @@ of the version's GitHub Release.
 - The release script no longer takes the mention of the Unreleased heading in
   the changelog intro for the section itself: the 1.0.0 notes were left empty.
 
+### Changed
+
+- `@gladysassistant/integration-sdk` updated to 0.15.0.
+
 ## [1.0.0] - 2026-10-12
 
 ### Added
