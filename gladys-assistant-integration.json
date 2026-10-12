@@ -6,8 +6,8 @@
     "en": "Control your Beatbot pool robots: status, battery, cleaning and alerts.",
     "fr": "Pilotez vos robots piscine Beatbot : état, batterie, nettoyage et alertes."
   },
-  "version": "1.0.0",
-  "docker_image": "ghcr.io/prohand/gladys-beatbot:1.0.0",
+  "version": "1.1.0",
+  "docker_image": "ghcr.io/prohand/gladys-beatbot:1.1.0",
   "gladys_version": ">=5.2.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-beatbot/main/cover.png",
   "categories": ["appliances"],

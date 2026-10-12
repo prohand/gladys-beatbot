@@ -10,6 +10,8 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-12
+
 ### Added
 
 - "Pool robot" widget: a **Cleaning mode** button opens a form listing the
@@ -49,5 +51,6 @@ of the version's GitHub Release.
   release workflow, GitHub Releases, Dependabot.
 - `SECURITY.md`, `CLAUDE.md` and the user documentation in English and French.
 
-[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/prohand/gladys-beatbot/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/prohand/gladys-beatbot/releases/tag/v1.0.0
