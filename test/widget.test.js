@@ -143,7 +143,9 @@ test('a tap relayed without values (core older than 5.2) changes nothing', async
     params: { device: DEVICE },
   });
   assert.match(toast.en, /Gladys 5\.2/);
-  assert.ok(toast.fr);
+  for (const lang of ['fr', 'de', 'es']) {
+    assert.ok(toast[lang], lang);
+  }
   assert.equal(service.modelOf(DEVICE).workMode, before);
   service.stop();
 });
@@ -159,6 +161,37 @@ test('an unknown robot or no account shows a short explanation', async () => {
   assert.match(content.components[0].text.en, /Link your Beatbot account/);
   service.stop();
   unlinked.service.stop();
+});
+
+// Every multi-language object of a content (labels, values, texts) carries the
+// four languages of the Gladys interface.
+function multiLanguageTexts(node, out = []) {
+  if (Array.isArray(node)) {
+    node.forEach((item) => multiLanguageTexts(item, out));
+  } else if (node && typeof node === 'object') {
+    if (typeof node.en === 'string') {
+      out.push(node);
+    } else {
+      Object.values(node).forEach((value) => multiLanguageTexts(value, out));
+    }
+  }
+  return out;
+}
+
+test('every widget text is written in English, French, German and Spanish', async () => {
+  const { service } = await startedService();
+  const content = await widget.get(service, { settings: { robot: DEVICE } });
+  const unknown = await widget.get(service, {
+    settings: { robot: 'ext:beatbot-test:beatbot:nope' },
+  });
+  const texts = multiLanguageTexts([content, unknown]);
+  assert.ok(texts.length > 5);
+  for (const text of texts) {
+    for (const lang of ['en', 'fr', 'de', 'es']) {
+      assert.ok(text[lang], `${text.en} needs ${lang}`);
+    }
+  }
+  service.stop();
 });
 
 test('refreshWidgets nudges every declared widget', () => {

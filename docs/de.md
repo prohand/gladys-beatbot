@@ -1,0 +1,122 @@
+# Beatbot
+
+Diese Integration verbindet Gladys mit deinen **Beatbot-Poolrobotern**
+(Baureihen AquaSense, Sora…) und deren **Reinigungsstation**, über die
+Beatbot-Cloud.
+
+## Bevor du beginnst
+
+- Deine Roboter müssen bereits in der **Beatbot-App** funktionieren (Konto
+  erstellt, Roboter gekoppelt, WLAN eingerichtet).
+- Beatbot-Roboter werden **ausschließlich über die Beatbot-Cloud** gesteuert:
+  Gladys benötigt einen Internetzugang. Eine lokale Steuerung gibt es nicht.
+- Ein tauchender Roboter verliert oft das WLAN: Er wird dann für einige
+  Minuten als **Nicht erreichbar** angezeigt, das ist normal.
+
+## Das Konto verknüpfen
+
+1. Öffne den Tab **Konfiguration** der Integration.
+2. Klicke neben **Beatbot-Konto** auf **Verbinden**.
+3. Die Anmeldeseite von Beatbot öffnet sich: Melde dich an und erlaube
+   den Zugriff. Dein Passwort wird auf der Seite von Beatbot eingegeben, es
+   läuft nie über Gladys.
+4. Zurück in Gladys wird der Verbindungsstatus grün und deine Roboter erscheinen
+   im Tab **Entdecken**: Klicke bei jedem auf **Zu Gladys hinzufügen**.
+
+Die Schaltfläche **Verbindung testen** listet die gefundenen Roboter, ihren
+Status und ihren Akkustand auf.
+
+### Die anderen Einstellungen
+
+| Einstellung                     | Wozu sie dient                                                                                                                                             |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Region**                      | Wo dein Konto gehostet wird (Europa, Nordamerika, China). **Automatisch** liest sie aus dem Konto: Ändere sie nur, wenn du dazu aufgefordert wirst.        |
+| **Vollständige Aktualisierung** | Die Zustände kommen in Echtzeit an. Dieses vollständige Auslesen (standardmäßig alle 10 min) holt nach, was dir durch einen Netzwerkausfall entgangen ist. |
+| **OAuth-Client-ID**             | Erweitert. Behalte den Standardwert, außer Beatbot hat dir eine andere Client-ID gegeben.                                                                  |
+
+### Wenn die Beatbot-Seite die Anmeldung verweigert
+
+Die Integration nutzt den „Open API“-Zugang, den Beatbot für die
+Hausautomation veröffentlicht, mit der öffentlichen Client-ID von Beatbot.
+Zeigt die Beatbot-Seite einen Fehler an (zum Beispiel zur Rücksprungadresse,
+`redirect_uri`), akzeptiert Beatbot deine Gladys-Rücksprungadresse für diese
+Client-ID noch nicht: Bitte den Beatbot-Support um eine Client-ID für
+Gladys, trage sie in **OAuth-Client-ID** ein, speichere und klicke
+dann erneut auf **Verbinden**.
+
+## Was du erhältst
+
+Für jeden Roboter (und jede Station), je nachdem, was der Roboter anbietet:
+
+| Funktion             | Detail                                                                                       |
+| -------------------- | -------------------------------------------------------------------------------------------- |
+| **Status**           | Gestoppt, Reinigung, pausiert, Fehler, kehrt zurück, lädt, an der Basis.                     |
+| **Reinigung**        | Reinigung starten / pausieren.                                                               |
+| **Zurück zur Basis** | Ruft den Roboter zurück (zu seiner Basis oder zur Wasserlinie, um ihn herauszunehmen).       |
+| **Akku** / **Laden** | Akkustand in % und laufender Ladevorgang (nur Roboter, nicht die Station).                   |
+| **Reinigungsmodus**  | Die Modi des Roboters (Boden, Wände, Wasserlinie…), so benannt wie bei Beatbot.              |
+| **Kindersicherung**  | Sperrt die Tasten des Roboters.                                                              |
+| **Nicht stören**     | Schaltet die Sprachansagen des Roboters aus (nur lesbar, wenn der Roboter es nicht zulässt). |
+
+Jeder Roboter trägt ein Abzeichen **Cloud**, wenn er erreichbar ist, sonst
+**Nicht erreichbar**.
+
+## Szenen
+
+Die Integration fügt dem Szeneneditor eigene Karten hinzu (Gladys 5.1 oder
+neuer), unter **Integrationen**.
+
+Auslöser:
+
+- **Status des Poolroboters geändert** — optional nach Roboter und neuem
+  Status filtern. Die folgenden Aktionen lesen `{{triggerEvent.data.status}}`,
+  `{{triggerEvent.data.previous_status}}` und `{{triggerEvent.data.detail}}`
+  (detaillierter Status: taucht ab, taucht auf…).
+- **Poolreinigung beendet** — ein Zyklus wurde normal beendet. Variablen:
+  `{{triggerEvent.data.duration_minutes}}` (leer, wenn der Zyklus vor der
+  Integration begonnen hat) und `{{triggerEvent.data.battery}}`.
+- **Störung des Poolroboters** — eine Störung ist gerade aufgetreten (Roboter
+  steckt fest, Korb voll, Motorfehler…). Filtere nach den Störungen, die
+  dich interessieren. Variablen: `{{triggerEvent.data.error}}`,
+  `{{triggerEvent.data.label_de}}`.
+
+Aktionen (jede gibt `sent` zurück: false, wenn der Roboter diesen Befehl nicht
+anbietet):
+
+- **Poolreinigung starten**
+- **Poolreinigung pausieren**
+- **Poolroboter zurückrufen**
+- **Reinigungsmodus festlegen** — gib den Namen des Modus so ein, wie er
+  am Gerät in Gladys angezeigt wird.
+
+Beispiele: „nach der Reinigung eine Nachricht mit ihrer Dauer erhalten“ oder
+„alarmiert werden, wenn der Roboter feststeckt“.
+
+## Dashboard
+
+Füge unter **Dashboard → Bearbeiten → Neues Widget** das Widget **Poolroboter**
+hinzu (bei den **Integrations-Widgets**) und wähle den Roboter: Es zeigt
+den Akkustand live, den Status, die aktuelle Störung, die Verbindung, den Modus
+und die Dauer der letzten Reinigung, mit den Schaltflächen **Starten**,
+**Pause** und **Zurück**.
+
+Wenn der Roboter das Ändern seines Reinigungsmodus erlaubt, öffnet eine
+Schaltfläche **Reinigungsmodus** ein kleines Formular mit den Modi dieses
+Roboters, mit dem aktuellen vorausgefüllt: Wähle einen aus und sende
+ihn (Gladys 5.2 oder neuer, von der Integration vorausgesetzt).
+
+## Fehlerbehebung
+
+- **„Klicke auf Verbinden…“**: Kein Konto verknüpft, oder die
+  Autorisierung ist abgelaufen oder wurde widerrufen: Klicke erneut auf
+  **Verbinden**.
+- **„Dein Beatbot-Konto hat seine Region nicht angegeben“**: Wähle sie in
+  **Region** und speichere.
+- **„Beatbot-Cloud nicht erreichbar“**: Prüfe den Internetzugang von
+  Gladys; die Integration versucht es von selbst erneut.
+- **Die Zustände ändern sich nicht mehr in Echtzeit**: Eine andere Software
+  (zum Beispiel Home Assistant) nutzt möglicherweise dasselbe Beatbot-Konto und
+  hat die Echtzeitverbindung übernommen. Die Zustände werden weiterhin bei jeder
+  vollständigen Aktualisierung aktualisiert.
+- Die Protokolle der Integration stehen in ihrem Tab **Protokolle** in Gladys. Sie enthalten
+  niemals deine Tokens.

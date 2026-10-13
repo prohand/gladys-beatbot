@@ -10,6 +10,17 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Added
+
+- German and Spanish translations (configuration screen, messages, widgets,
+  documentation).
+- Scene trigger "Pool robot fault": `label_de` and `label_es` variables (the fault in
+  German and Spanish).
+
+### Fixed
+
+- The English documentation names the Gladys screens as the Gladys interface does.
+
 ## [1.1.0] - 2026-10-12
 
 ### Added

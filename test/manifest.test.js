@@ -119,6 +119,13 @@ test('trigger filters offer exactly the values the code sends', () => {
   }
 });
 
+test('error_raised hands the fault label over in every language', () => {
+  const variables = keysOf(trigger('error_raised').variables);
+  for (const lang of LANGUAGES) {
+    assert.ok(variables.includes(`label_${lang}`), `label_${lang}`);
+  }
+});
+
 test('scene trigger fields never use the boolean type', () => {
   for (const t of manifest.scene_triggers) {
     for (const field of t.fields ?? []) {
@@ -171,7 +178,10 @@ test('keys follow the store pattern', () => {
   }
 });
 
-test('every text is a multi-language object with English and French', () => {
+// The languages of the Gladys interface: every user-facing text carries all four.
+const LANGUAGES = ['en', 'fr', 'de', 'es'];
+
+test('every text is a multi-language object in English, French, German and Spanish', () => {
   const texts = [];
   const walk = (node, path) => {
     if (Array.isArray(node)) {
@@ -190,7 +200,24 @@ test('every text is a multi-language object with English and French', () => {
   assert.ok(texts.length > 20);
   for (const [path, value] of texts) {
     assert.equal(typeof value, 'object', path);
-    assert.ok(value.en && value.fr, `${path} needs en and fr`);
+    for (const lang of LANGUAGES) {
+      assert.ok(value[lang], `${path} needs ${lang}`);
+    }
+  }
+});
+
+test('widget texts respect the store limits in every language', () => {
+  for (const widget of manifest.widgets) {
+    for (const lang of LANGUAGES) {
+      const label = widget.label[lang];
+      assert.ok(label.length >= 3 && label.length <= 30, `${widget.key}.label.${lang}`);
+      assert.ok(widget.description[lang].length <= 100, `${widget.key}.description.${lang}`);
+    }
+  }
+  for (const section of manifest.config_schema.filter((f) => f.type === 'section')) {
+    for (const lang of LANGUAGES) {
+      assert.ok(section.description[lang].length <= 1000, `${section.key}.description.${lang}`);
+    }
   }
 });
 
@@ -200,6 +227,7 @@ test('the manifest version is the package version, and the image is tagged with 
 });
 
 test('the catalog description holds 10 to 100 characters per language', () => {
+  assert.deepEqual(Object.keys(manifest.description), LANGUAGES);
   for (const [lang, text] of Object.entries(manifest.description)) {
     assert.ok(text.length >= 10 && text.length <= 100, `description.${lang}: ${text.length}`);
   }

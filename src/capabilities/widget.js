@@ -51,6 +51,13 @@ export const FORM_ACTIONS = ['set_cleaning_mode'];
 // cloud label never reaches the card half-truncated by somebody else.
 const OPTION_LABEL_MAX = 40;
 
+const CLEANING_MODE = {
+  en: 'Cleaning mode',
+  fr: 'Mode de nettoyage',
+  de: 'Reinigungsmodus',
+  es: 'Modo de limpieza',
+};
+
 const STATUS_COLORS = {
   cleaning: WIDGET_COLORS.SUCCESS,
   paused: WIDGET_COLORS.WARNING,
@@ -76,6 +83,8 @@ export function buildPoolRobotContent(service, externalId) {
     return textOnly({
       en: 'Link your Beatbot account in the integration configuration.',
       fr: "Liez votre compte Beatbot dans la configuration de l'intégration.",
+      de: 'Verknüpfe dein Beatbot-Konto in der Konfiguration der Integration.',
+      es: 'Vincule su cuenta de Beatbot en la configuración de la integración.',
     });
   }
   const model = externalId ? service.modelOf(externalId) : null;
@@ -83,6 +92,8 @@ export function buildPoolRobotContent(service, externalId) {
     return textOnly({
       en: 'Robot not found: pick it again in the widget settings.',
       fr: 'Robot introuvable : choisissez-le à nouveau dans les réglages du widget.',
+      de: 'Roboter nicht gefunden: Wähle ihn in den Widget-Einstellungen erneut aus.',
+      es: 'Robot no encontrado: vuelva a elegirlo en la configuración del widget.',
     });
   }
 
@@ -91,7 +102,7 @@ export function buildPoolRobotContent(service, externalId) {
   if (features.includes(FEATURE.BATTERY)) {
     components.push({
       type: 'value',
-      label: { en: 'Battery', fr: 'Batterie' },
+      label: { en: 'Battery', fr: 'Batterie', de: 'Akku', es: 'Batería' },
       icon: 'battery',
       device_feature: `${externalId}:${FEATURE.BATTERY}`,
     });
@@ -104,32 +115,34 @@ export function buildPoolRobotContent(service, externalId) {
   const lastFinished = service.tracker.lastFinishedOf(model.deviceId);
   const items = [
     {
-      label: { en: 'Status', fr: 'État' },
+      label: { en: 'Status', fr: 'État', de: 'Status', es: 'Estado' },
       icon: 'activity',
       value: known
         ? (STATUS_LABELS[detail] ?? SIMPLE_STATUS_LABELS[simple])
-        : { en: 'Unknown', fr: 'Inconnu' },
+        : STATUS_LABELS.unknown,
       color: known ? STATUS_COLORS[simple] : WIDGET_COLORS.NEUTRAL,
     },
     {
-      label: { en: 'Fault', fr: 'Défaut' },
+      label: { en: 'Fault', fr: 'Défaut', de: 'Störung', es: 'Fallo' },
       icon: 'alert-triangle',
-      value: faults.length ? (ERROR_LABELS[faults[0]] ?? faults[0]) : { en: 'None', fr: 'Aucun' },
+      value: faults.length
+        ? (ERROR_LABELS[faults[0]] ?? faults[0])
+        : { en: 'None', fr: 'Aucun', de: 'Keine', es: 'Ninguno' },
       color: faults.length ? WIDGET_COLORS.DANGER : WIDGET_COLORS.SUCCESS,
     },
     {
-      label: { en: 'Link', fr: 'Liaison' },
+      label: { en: 'Link', fr: 'Liaison', de: 'Verbindung', es: 'Conexión' },
       icon: 'wifi',
       value: model.isOnline
-        ? { en: 'Online', fr: 'En ligne' }
-        : { en: 'Offline', fr: 'Hors ligne' },
+        ? { en: 'Online', fr: 'En ligne', de: 'Online', es: 'En línea' }
+        : { en: 'Offline', fr: 'Hors ligne', de: 'Offline', es: 'Sin conexión' },
       color: model.isOnline ? WIDGET_COLORS.SUCCESS : WIDGET_COLORS.WARNING,
     },
   ];
   const mode = model.workModeOptions?.get(model.workMode);
   if (mode) {
     items.push({
-      label: { en: 'Mode', fr: 'Mode' },
+      label: { en: 'Mode', fr: 'Mode', de: 'Modus', es: 'Modo' },
       icon: 'sliders',
       value: mode,
       color: WIDGET_COLORS.NEUTRAL,
@@ -137,7 +150,12 @@ export function buildPoolRobotContent(service, externalId) {
   }
   if (lastFinished?.durationMinutes !== null && lastFinished?.durationMinutes !== undefined) {
     items.push({
-      label: { en: 'Last cleaning', fr: 'Dernier nettoyage' },
+      label: {
+        en: 'Last cleaning',
+        fr: 'Dernier nettoyage',
+        de: 'Letzte Reinigung',
+        es: 'Última limpieza',
+      },
       icon: 'clock',
       value: `${lastFinished.durationMinutes} min`,
       color: WIDGET_COLORS.NEUTRAL,
@@ -154,14 +172,28 @@ export function buildPoolRobotContent(service, externalId) {
   });
   const cleaning = simple === 'cleaning';
   if (!cleaning && canControl(model, INTERFACE.START)) {
-    components.push(button('start', { en: 'Start', fr: 'Démarrer' }, 'play', 'primary'));
+    components.push(
+      button(
+        'start',
+        { en: 'Start', fr: 'Démarrer', de: 'Starten', es: 'Iniciar' },
+        'play',
+        'primary',
+      ),
+    );
   }
   if (cleaning && canControl(model, INTERFACE.PAUSE)) {
-    components.push(button('pause', { en: 'Pause', fr: 'Pause' }, 'pause', 'secondary'));
+    components.push(
+      button('pause', { en: 'Pause', fr: 'Pause', de: 'Pause', es: 'Pausa' }, 'pause', 'secondary'),
+    );
   }
   if (canControl(model, INTERFACE.RETURN_TO_BASE)) {
     components.push(
-      button('return_to_base', { en: 'Return', fr: 'Retour' }, 'corner-down-left', 'secondary'),
+      button(
+        'return_to_base',
+        { en: 'Return', fr: 'Retour', de: 'Zurück', es: 'Volver' },
+        'corner-down-left',
+        'secondary',
+      ),
     );
   }
   // Same rule as the device feature: offered only when the cloud advertises
@@ -194,10 +226,10 @@ function cleaningModeButton(externalId, model) {
     key: 'mode',
     type: 'select',
     required: true,
-    label: { en: 'Cleaning mode', fr: 'Mode de nettoyage' },
+    label: CLEANING_MODE,
     options: labels.map((label) => {
       const text = label.slice(0, OPTION_LABEL_MAX);
-      return { value: label, label: { en: text, fr: text } };
+      return { value: label, label: { en: text, fr: text, de: text, es: text } };
     }),
   };
   if (labels.includes(current)) {
@@ -205,7 +237,7 @@ function cleaningModeButton(externalId, model) {
   }
   return {
     type: 'button',
-    label: { en: 'Cleaning mode', fr: 'Mode de nettoyage' },
+    label: CLEANING_MODE,
     icon: 'sliders',
     style: 'secondary',
     action: { key: 'set_cleaning_mode', params: { device: externalId }, fields: [field] },
@@ -224,17 +256,23 @@ async function setCleaningMode(service, params, values) {
     return {
       en: 'Choose the mode in the form of the button (Gladys 5.2 or later).',
       fr: 'Choisissez le mode dans le formulaire du bouton (Gladys 5.2 ou plus récent).',
+      de: 'Wähle den Modus im Formular der Schaltfläche (Gladys 5.2 oder neuer).',
+      es: 'Elija el modo en el formulario del botón (Gladys 5.2 o posterior).',
     };
   }
   if (!(await service.runWorkMode(params?.device, values.mode))) {
     return {
       en: 'This robot does not accept that cleaning mode.',
       fr: "Ce robot n'accepte pas ce mode de nettoyage.",
+      de: 'Dieser Roboter akzeptiert diesen Reinigungsmodus nicht.',
+      es: 'Este robot no acepta ese modo de limpieza.',
     };
   }
   return {
     en: `Cleaning mode set to ${values.mode}.`,
     fr: `Mode de nettoyage réglé sur ${values.mode}.`,
+    de: `Reinigungsmodus auf ${values.mode} gesetzt.`,
+    es: `Modo de limpieza cambiado a ${values.mode}.`,
   };
 }
 
@@ -259,9 +297,16 @@ export const WIDGETS = {
         return {
           en: 'This robot does not accept that order.',
           fr: "Ce robot n'accepte pas cet ordre.",
+          de: 'Dieser Roboter akzeptiert diesen Befehl nicht.',
+          es: 'Este robot no acepta esa orden.',
         };
       }
-      return { en: 'Order sent to the robot.', fr: 'Ordre envoyé au robot.' };
+      return {
+        en: 'Order sent to the robot.',
+        fr: 'Ordre envoyé au robot.',
+        de: 'Befehl an den Roboter gesendet.',
+        es: 'Orden enviada al robot.',
+      };
     },
   },
 };

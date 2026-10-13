@@ -80,6 +80,8 @@ test('a fault fires error_raised once per new fault, and is no finished cleaning
     error: 'trapped',
     label_en: 'Robot stuck',
     label_fr: 'Robot coincé',
+    label_de: 'Roboter steckt fest',
+    label_es: 'Robot atascado',
   });
   assert.deepEqual(
     step({ 'sensor.error': (1 << 18) | 1 }).map((e) => e.data.error),

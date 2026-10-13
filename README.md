@@ -9,7 +9,8 @@ through the Beatbot cloud. Built on the official
 - **Transport: cloud only** (`"transports": ["cloud"]`) — Beatbot robots have no local API.
 - **Requires Gladys ≥ 5.2.0** (scene triggers, scene actions, dashboard widget, and the form
   of its Cleaning mode button).
-- User documentation: [English](docs/en.md) · [Français](docs/fr.md).
+- User documentation: [English](docs/en.md) · [Français](docs/fr.md) · [Deutsch](docs/de.md) ·
+  [Español](docs/es.md).
 
 ## Features
 
@@ -59,7 +60,7 @@ page refuses it, ask Beatbot for a client ID for Gladys (see the user documentat
 │  │  └─ eventStream.js              #   real-time WebSocket
 │  ├─ devices/poolRobot.js           # Gladys device, states, commands
 │  └─ capabilities/                  # Gladys 5.1: triggers, scene actions, widget, actions
-├─ docs/en.md, docs/fr.md            # user documentation (re-hosted by Gladys)
+├─ docs/{en,fr,de,es}.md             # user documentation (re-hosted by Gladys)
 ├─ test/                             # node --test, no network (fake cloud + fake SDK)
 ├─ gladys-assistant-integration.json # manifest
 ├─ Dockerfile                        # Node 24 Alpine, non-root, read-only rootfs ready

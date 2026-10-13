@@ -19,7 +19,7 @@ Sora… ranges) and their **cleaning base station**, through the Beatbot cloud.
 3. The Beatbot sign-in page opens: sign in and allow access. Your password is
    typed on Beatbot's page, it never goes through Gladys.
 4. Back in Gladys, the connection status turns green and your robots show up
-   in the **Discovery** tab, ready to be added.
+   in the **Discover** tab: click **Add to Gladys** on each one.
 
 The **Test the connection** button lists the robots found, their status and
 their battery.
@@ -89,7 +89,8 @@ duration", or "when the robot is stuck, alert me".
 
 ## Dashboard
 
-Add the **Pool robot** widget and pick the robot: it shows the live battery,
+In **Dashboard → Edit → New widget**, add the **Pool robot** widget (under
+**Integration widgets**) and pick the robot: it shows the live battery,
 the status, the current fault, the link, the mode and how long the last
 cleaning took, with **Start**, **Pause** and **Return** buttons.
 
@@ -108,5 +109,5 @@ one: pick one and send it (Gladys 5.2 or later, required by the integration).
 - **States no longer move in real time**: another software (Home Assistant for
   instance) may use the same Beatbot account and have taken the real-time
   connection. States are still updated at every full refresh.
-- The integration logs are available from Gladys. They never contain your
+- The integration logs are in its **Logs** tab in Gladys. They never contain your
   tokens.
