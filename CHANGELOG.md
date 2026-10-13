@@ -10,6 +10,8 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-13
+
 ### Added
 
 - German and Spanish translations (configuration screen, messages, widgets,
@@ -62,6 +64,7 @@ of the version's GitHub Release.
   release workflow, GitHub Releases, Dependabot.
 - `SECURITY.md`, `CLAUDE.md` and the user documentation in English and French.
 
-[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/prohand/gladys-beatbot/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/prohand/gladys-beatbot/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/prohand/gladys-beatbot/releases/tag/v1.0.0
