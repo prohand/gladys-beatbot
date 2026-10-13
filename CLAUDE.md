@@ -55,7 +55,7 @@ src/capabilities/triggers.js  scene triggers (transition tracker)
 src/capabilities/scenes.js    scene action handlers
 src/capabilities/widget.js    "Pool robot" dashboard widget
 src/capabilities/actions.js   Configuration screen buttons (test_connection)
-docs/en.md, docs/fr.md        user documentation, re-hosted by Gladys (keep both in sync)
+docs/{en,fr,de,es}.md         user documentation, re-hosted by Gladys (keep all four in sync)
 .github/scripts/changelog-release.mjs   rolls CHANGELOG.md for the Release workflow
 ```
 
@@ -90,11 +90,12 @@ docs/en.md, docs/fr.md        user documentation, re-hosted by Gladys (keep both
 - **Changelog.** Every user-visible change adds a line under `## [Unreleased]` in
   `CHANGELOG.md` (`### Added`, `Changed`, `Fixed`, `Removed`, `Security`). Never write a
   version heading.
-- **Manifest.** Texts are `{ "en": ..., "fr": ... }` objects (`label`, `description`,
-  `placeholder`). The catalog `description` holds 10 to 100 characters. `scene_triggers`,
+- **Manifest.** Texts are `{ "en", "fr", "de", "es" }` objects (`label`, `description`,
+  `placeholder`). The catalog `description` holds 10 to 100 characters per language. `scene_triggers`,
   `scene_actions` and `widgets` require `gladys_version >= 5.1.0`. `test/manifest.test.js`
   ties the manifest to the code (defaults, handlers, trigger options): change both together.
-- **User-facing text** is bilingual (English and French).
+- **User-facing text** is `{ en, fr, de, es }` (English, French, German, Spanish), and
+  `docs/en.md`, `docs/fr.md`, `docs/de.md`, `docs/es.md` stay in sync.
 - **Tests never touch the network**: `test/helpers/fakeBeatbot.js` fakes the cloud (fetch,
   OAuth, WebSocket), `test/helpers/fakeGladys.js` the SDK.
 - **Style.** Prettier formats, ESLint catches mistakes. Comments explain why, in English.

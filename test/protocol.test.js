@@ -57,27 +57,32 @@ test('an active fault makes the Gladys state ERROR whatever the status', () => {
   assert.equal(simpleStatusOf(model), 'error');
 });
 
-test('every status, simple status and fault has an English and a French label', () => {
+const LANGUAGES = ['en', 'fr', 'de', 'es'];
+const hasEveryLanguage = (label) => Boolean(label) && LANGUAGES.every((lang) => label[lang]);
+
+test('every status, simple status and fault has a label in every language', () => {
   for (const code of Array.from({ length: 21 }, (_, i) => i)) {
     const { status } = decodeStatus(POOL, code);
-    assert.ok(STATUS_LABELS[status]?.en && STATUS_LABELS[status]?.fr, status);
+    assert.ok(hasEveryLanguage(STATUS_LABELS[status]), status);
   }
   for (const code of [0, 1, 2, 3, 4, 5]) {
     const { status } = decodeStatus(STATION, code);
-    assert.ok(STATUS_LABELS[status]?.fr, status);
+    assert.ok(hasEveryLanguage(STATUS_LABELS[status]), status);
   }
   for (const status of SIMPLE_STATUSES) {
-    assert.ok(SIMPLE_STATUS_LABELS[status]?.fr, status);
+    assert.ok(hasEveryLanguage(SIMPLE_STATUS_LABELS[status]), status);
   }
   for (const category of [POOL, STATION]) {
     for (const error of errorKeysFor(category, { includeNotices: false })) {
-      assert.ok(ERROR_LABELS[error]?.en && ERROR_LABELS[error]?.fr, error);
+      assert.ok(hasEveryLanguage(ERROR_LABELS[error]), error);
     }
   }
 });
 
 test('labelOf falls back to English, then to the raw key', () => {
   assert.equal(labelOf(ERROR_LABELS, 'trapped', 'fr'), 'Robot coincé');
-  assert.equal(labelOf(ERROR_LABELS, 'trapped', 'de'), 'Robot stuck');
+  assert.equal(labelOf(ERROR_LABELS, 'trapped', 'de'), 'Roboter steckt fest');
+  assert.equal(labelOf(ERROR_LABELS, 'trapped', 'es'), 'Robot atascado');
+  assert.equal(labelOf(ERROR_LABELS, 'trapped', 'it'), 'Robot stuck');
   assert.equal(labelOf(ERROR_LABELS, 'brand_new_error', 'fr'), 'brand_new_error');
 });

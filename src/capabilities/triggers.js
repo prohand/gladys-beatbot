@@ -109,6 +109,8 @@ export class SceneTriggerTracker {
           error,
           label_en: labelOf(ERROR_LABELS, error, 'en'),
           label_fr: labelOf(ERROR_LABELS, error, 'fr'),
+          label_de: labelOf(ERROR_LABELS, error, 'de'),
+          label_es: labelOf(ERROR_LABELS, error, 'es'),
         },
       });
     }

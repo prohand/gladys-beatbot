@@ -1,0 +1,117 @@
+# Beatbot
+
+Esta integración conecta Gladys con sus **robots de piscina Beatbot** (gamas
+AquaSense, Sora…) y su **estación de limpieza**, a través de la nube de
+Beatbot.
+
+## Antes de empezar
+
+- Sus robots ya deben funcionar en la **aplicación Beatbot** (cuenta creada,
+  robot emparejado, wifi configurado).
+- Los robots Beatbot se controlan **solo a través de la nube de Beatbot**:
+  Gladys necesita acceso a Internet. No hay control local.
+- Un robot que se sumerge suele perder el wifi: entonces aparece como
+  **Inaccesible** durante unos minutos, es lo esperado.
+
+## Vincular la cuenta
+
+1. Abra la pestaña **Configuración** de la integración.
+2. Pulse **Conectar** junto a **Cuenta de Beatbot**.
+3. Se abre la página de inicio de sesión de Beatbot: inicie sesión y autorice
+   el acceso. Su contraseña se escribe en la página de Beatbot, nunca pasa por
+   Gladys.
+4. De vuelta en Gladys, el estado de conexión se pone en verde y sus robots
+   aparecen en la pestaña **Descubrir**, listos para añadirlos.
+
+El botón **Probar la conexión** lista los robots encontrados, su estado y su
+batería.
+
+### Los demás ajustes
+
+| Ajuste                     | Para qué sirve                                                                                                                           |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Región**                 | Dónde está alojada su cuenta (Europa, América del Norte, China). **Automática** la lee de la cuenta: cámbiela solo si se le pide.        |
+| **Actualización completa** | Los estados llegan en tiempo real. Esta lectura completa (cada 10 min por defecto) recupera lo que un corte de red le haya hecho perder. |
+| **ID de cliente OAuth**    | Avanzado. Mantenga el valor por defecto, salvo que Beatbot le haya dado otro ID de cliente.                                              |
+
+### Si la página de Beatbot rechaza el inicio de sesión
+
+La integración utiliza el acceso «open API» que Beatbot publica para la
+domótica, con el ID de cliente público de Beatbot. Si la página de Beatbot
+muestra un error (por ejemplo, sobre la dirección de retorno, `redirect_uri`),
+Beatbot todavía no acepta la dirección de retorno de su Gladys para ese ID de
+cliente: pida al soporte de Beatbot un ID de cliente para Gladys, escríbalo en
+**ID de cliente OAuth**, guarde y vuelva a pulsar **Conectar**.
+
+## Lo que obtiene
+
+Para cada robot (y cada estación), según lo que ofrezca el robot:
+
+| Funcionalidad           | Detalle                                                                                |
+| ----------------------- | -------------------------------------------------------------------------------------- |
+| **Estado**              | Detenido, limpiando, en pausa, error, regresando, cargando, en la base.                |
+| **Limpieza**            | Iniciar / pausar la limpieza.                                                          |
+| **Volver a la base**    | Hace volver al robot (a su base, o a la línea de flotación para recogerlo).            |
+| **Batería** / **Carga** | Nivel de batería en % y carga en curso (solo robots, no la estación).                  |
+| **Modo de limpieza**    | Los modos del robot (suelo, paredes, línea de flotación…), con los nombres de Beatbot. |
+| **Bloqueo infantil**    | Bloquea los botones del robot.                                                         |
+| **No molestar**         | Desactiva los mensajes de voz del robot (solo lectura cuando el robot no lo permite).  |
+
+Cada robot lleva una insignia **Nube** cuando es accesible, **Inaccesible** en
+caso contrario.
+
+## Escenas
+
+La integración añade sus propias tarjetas al editor de escenas (Gladys 5.1 o
+posterior), en **Integraciones**.
+
+Activadores:
+
+- **Estado del robot de piscina cambiado** — filtre opcionalmente por el robot
+  y por el nuevo estado. Las acciones siguientes leen
+  `{{triggerEvent.data.status}}`, `{{triggerEvent.data.previous_status}}` y
+  `{{triggerEvent.data.detail}}` (estado detallado: sumergiéndose,
+  emergiendo…).
+- **Limpieza de la piscina terminada** — un ciclo ha terminado con normalidad.
+  Variables: `{{triggerEvent.data.duration_minutes}}` (vacía si el ciclo empezó
+  antes que la integración) y `{{triggerEvent.data.battery}}`.
+- **Fallo del robot de piscina** — acaba de aparecer un fallo (robot atascado,
+  cesta llena, fallo del motor…). Filtre por los fallos que le interesen.
+  Variables: `{{triggerEvent.data.error}}`, `{{triggerEvent.data.label_es}}`.
+
+Acciones (cada una devuelve `sent`: false cuando el robot no ofrece esa orden):
+
+- **Iniciar la limpieza de la piscina**
+- **Pausar la limpieza de la piscina**
+- **Hacer volver el robot de piscina**
+- **Elegir el modo de limpieza** — escriba el nombre del modo tal y como
+  aparece en el dispositivo en Gladys.
+
+Ejemplos: «cuando termine la limpieza, recibir un mensaje con su duración», o
+«cuando el robot esté atascado, recibir una alerta».
+
+## Panel
+
+Añada el widget **Robot de piscina** y elija el robot: muestra la batería en
+directo, el estado, el fallo actual, la conexión, el modo y la duración de la
+última limpieza, con los botones **Iniciar**, **Pausa** y **Volver**.
+
+Cuando el robot permite cambiar su modo de limpieza, un botón **Modo de
+limpieza** abre un pequeño formulario con los modos de ese robot, con el actual
+ya seleccionado: elija uno y envíelo (Gladys 5.2 o posterior, necesario para la
+integración).
+
+## Solución de problemas
+
+- **«Pulse Conectar…»**: no hay ninguna cuenta vinculada, o la autorización ha
+  caducado o se ha revocado: vuelva a pulsar **Conectar**.
+- **«Su cuenta de Beatbot no ha indicado su región»**: elíjala en **Región** y
+  guarde.
+- **«Nube de Beatbot inaccesible»**: compruebe el acceso a Internet de Gladys;
+  la integración vuelve a intentarlo por sí sola.
+- **Los estados ya no cambian en tiempo real**: otro software (Home Assistant,
+  por ejemplo) puede estar usando la misma cuenta de Beatbot y haberse quedado
+  con la conexión en tiempo real. Los estados se siguen actualizando en cada
+  actualización completa.
+- Los registros de la integración están disponibles desde Gladys. Nunca
+  contienen sus tokens.

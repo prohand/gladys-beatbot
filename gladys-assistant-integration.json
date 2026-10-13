@@ -4,7 +4,9 @@
   "name": "Beatbot",
   "description": {
     "en": "Control your Beatbot pool robots: status, battery, cleaning and alerts.",
-    "fr": "Pilotez vos robots piscine Beatbot : état, batterie, nettoyage et alertes."
+    "fr": "Pilotez vos robots piscine Beatbot : état, batterie, nettoyage et alertes.",
+    "de": "Steuern Sie Ihre Beatbot-Poolroboter: Status, Akku, Reinigung und Warnungen.",
+    "es": "Controle sus robots de piscina Beatbot: estado, batería, limpieza y alertas."
   },
   "version": "1.1.0",
   "docker_image": "ghcr.io/prohand/gladys-beatbot:1.1.0",
@@ -18,25 +20,33 @@
       "type": "section",
       "label": {
         "en": "Getting started",
-        "fr": "Pour commencer"
+        "fr": "Pour commencer",
+        "de": "Erste Schritte",
+        "es": "Primeros pasos"
       },
       "description": {
         "en": "Your robots must already work in the Beatbot app. Click Connect and sign in with your Beatbot account: Gladys then finds every pool robot of the account. Beatbot robots are reached through the Beatbot cloud only, Internet access is required.",
-        "fr": "Vos robots doivent déjà fonctionner dans l'application Beatbot. Cliquez sur Connecter et identifiez-vous avec votre compte Beatbot : Gladys retrouve alors tous les robots piscine du compte. Les robots Beatbot ne sont joignables que par le cloud Beatbot, un accès Internet est nécessaire."
+        "fr": "Vos robots doivent déjà fonctionner dans l'application Beatbot. Cliquez sur Connecter et identifiez-vous avec votre compte Beatbot : Gladys retrouve alors tous les robots piscine du compte. Les robots Beatbot ne sont joignables que par le cloud Beatbot, un accès Internet est nécessaire.",
+        "de": "Ihre Roboter müssen bereits in der Beatbot-App funktionieren. Klicken Sie auf Verbinden und melden Sie sich mit Ihrem Beatbot-Konto an: Gladys findet dann alle Poolroboter des Kontos. Beatbot-Roboter sind nur über die Beatbot-Cloud erreichbar, ein Internetzugang ist erforderlich.",
+        "es": "Sus robots ya deben funcionar en la aplicación Beatbot. Pulse Conectar e inicie sesión con su cuenta de Beatbot: Gladys encontrará entonces todos los robots de piscina de la cuenta. Los robots Beatbot solo son accesibles a través de la nube de Beatbot, se necesita acceso a Internet."
       },
       "links": [
         {
           "url": "https://beatbot.com",
           "label": {
             "en": "Beatbot",
-            "fr": "Beatbot"
+            "fr": "Beatbot",
+            "de": "Beatbot",
+            "es": "Beatbot"
           }
         },
         {
           "url": "https://github.com/prohand/gladys-beatbot/blob/main/docs/en.md",
           "label": {
             "en": "Integration documentation",
-            "fr": "Documentation de l'intégration"
+            "fr": "Documentation de l'intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
           }
         }
       ]
@@ -46,11 +56,15 @@
       "type": "oauth2",
       "label": {
         "en": "Beatbot account",
-        "fr": "Compte Beatbot"
+        "fr": "Compte Beatbot",
+        "de": "Beatbot-Konto",
+        "es": "Cuenta de Beatbot"
       },
       "description": {
         "en": "Opens the Beatbot sign-in page. Your password never goes through Gladys.",
-        "fr": "Ouvre la page de connexion Beatbot. Votre mot de passe ne passe jamais par Gladys."
+        "fr": "Ouvre la page de connexion Beatbot. Votre mot de passe ne passe jamais par Gladys.",
+        "de": "Öffnet die Anmeldeseite von Beatbot. Ihr Passwort läuft nie über Gladys.",
+        "es": "Abre la página de inicio de sesión de Beatbot. Su contraseña nunca pasa por Gladys."
       }
     },
     {
@@ -58,11 +72,15 @@
       "type": "select",
       "label": {
         "en": "Region",
-        "fr": "Région"
+        "fr": "Région",
+        "de": "Region",
+        "es": "Región"
       },
       "description": {
         "en": "Where your Beatbot account is hosted. Automatic reads it from the account: change it only if the connection status asks you to.",
-        "fr": "Où votre compte Beatbot est hébergé. Automatique le lit dans le compte : ne le changez que si l'état de connexion vous le demande."
+        "fr": "Où votre compte Beatbot est hébergé. Automatique le lit dans le compte : ne le changez que si l'état de connexion vous le demande.",
+        "de": "Wo Ihr Beatbot-Konto gehostet wird. Automatisch liest sie aus dem Konto: Ändern Sie sie nur, wenn der Verbindungsstatus Sie dazu auffordert.",
+        "es": "Dónde está alojada su cuenta de Beatbot. Automática la lee de la cuenta: cámbiela solo si el estado de conexión se lo pide."
       },
       "required": false,
       "default": "auto",
@@ -71,28 +89,36 @@
           "value": "auto",
           "label": {
             "en": "Automatic",
-            "fr": "Automatique"
+            "fr": "Automatique",
+            "de": "Automatisch",
+            "es": "Automática"
           }
         },
         {
           "value": "eu",
           "label": {
             "en": "Europe",
-            "fr": "Europe"
+            "fr": "Europe",
+            "de": "Europa",
+            "es": "Europa"
           }
         },
         {
           "value": "na",
           "label": {
             "en": "North America",
-            "fr": "Amérique du Nord"
+            "fr": "Amérique du Nord",
+            "de": "Nordamerika",
+            "es": "América del Norte"
           }
         },
         {
           "value": "cn",
           "label": {
             "en": "Mainland China",
-            "fr": "Chine continentale"
+            "fr": "Chine continentale",
+            "de": "Festlandchina",
+            "es": "China continental"
           }
         }
       ]
@@ -102,15 +128,21 @@
       "type": "number",
       "label": {
         "en": "Full refresh (minutes)",
-        "fr": "Rafraîchissement complet (minutes)"
+        "fr": "Rafraîchissement complet (minutes)",
+        "de": "Vollständige Aktualisierung (Minuten)",
+        "es": "Actualización completa (minutos)"
       },
       "description": {
         "en": "States arrive in real time; this periodic full read only catches what a network outage made you miss.",
-        "fr": "Les états arrivent en temps réel ; cette lecture complète périodique rattrape seulement ce qu'une coupure réseau aurait fait manquer."
+        "fr": "Les états arrivent en temps réel ; cette lecture complète périodique rattrape seulement ce qu'une coupure réseau aurait fait manquer.",
+        "de": "Die Zustände kommen in Echtzeit an; dieses regelmäßige vollständige Auslesen holt nur nach, was Ihnen durch einen Netzwerkausfall entgangen ist.",
+        "es": "Los estados llegan en tiempo real; esta lectura completa periódica solo recupera lo que un corte de red le haya hecho perder."
       },
       "placeholder": {
         "en": "10",
-        "fr": "10"
+        "fr": "10",
+        "de": "10",
+        "es": "10"
       },
       "required": false,
       "default": 10,
@@ -122,15 +154,21 @@
       "type": "string",
       "label": {
         "en": "OAuth client ID (advanced)",
-        "fr": "Identifiant client OAuth (avancé)"
+        "fr": "Identifiant client OAuth (avancé)",
+        "de": "OAuth-Client-ID (erweitert)",
+        "es": "ID de cliente OAuth (avanzado)"
       },
       "description": {
         "en": "Leave as is unless Beatbot gave you another client ID. Click Connect again after changing it.",
-        "fr": "Laissez tel quel, sauf si Beatbot vous a fourni un autre identifiant client. Cliquez à nouveau sur Connecter après l'avoir changé."
+        "fr": "Laissez tel quel, sauf si Beatbot vous a fourni un autre identifiant client. Cliquez à nouveau sur Connecter après l'avoir changé.",
+        "de": "Unverändert lassen, außer Beatbot hat Ihnen eine andere Client-ID gegeben. Klicken Sie nach einer Änderung erneut auf Verbinden.",
+        "es": "Déjelo tal cual, salvo que Beatbot le haya dado otro ID de cliente. Pulse de nuevo Conectar después de cambiarlo."
       },
       "placeholder": {
         "en": "home-assistant",
-        "fr": "home-assistant"
+        "fr": "home-assistant",
+        "de": "home-assistant",
+        "es": "home-assistant"
       },
       "required": false,
       "default": "home-assistant"
@@ -141,7 +179,9 @@
       "key": "test_connection",
       "label": {
         "en": "Test the connection",
-        "fr": "Tester la connexion"
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
       },
       "timeout_seconds": 60
     }
@@ -151,11 +191,15 @@
       "key": "status_changed",
       "label": {
         "en": "Pool robot status changed",
-        "fr": "État du robot piscine modifié"
+        "fr": "État du robot piscine modifié",
+        "de": "Status des Poolroboters geändert",
+        "es": "Estado del robot de piscina cambiado"
       },
       "description": {
         "en": "The robot started, paused, returned, docked, charged or stopped.",
-        "fr": "Le robot a démarré, s'est mis en pause, est revenu, s'est amarré, charge ou s'est arrêté."
+        "fr": "Le robot a démarré, s'est mis en pause, est revenu, s'est amarré, charge ou s'est arrêté.",
+        "de": "Der Roboter ist gestartet, hat pausiert, ist zurückgekehrt, hat angedockt, lädt oder hat gestoppt.",
+        "es": "El robot ha arrancado, se ha pausado, ha regresado, se ha acoplado, está cargando o se ha detenido."
       },
       "fields": [
         {
@@ -164,7 +208,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           }
         },
         {
@@ -172,56 +218,72 @@
           "type": "multi_select",
           "label": {
             "en": "New status",
-            "fr": "Nouvel état"
+            "fr": "Nouvel état",
+            "de": "Neuer Status",
+            "es": "Nuevo estado"
           },
           "options": [
             {
               "value": "stopped",
               "label": {
                 "en": "Stopped",
-                "fr": "Arrêté"
+                "fr": "Arrêté",
+                "de": "Gestoppt",
+                "es": "Detenido"
               }
             },
             {
               "value": "cleaning",
               "label": {
                 "en": "Cleaning",
-                "fr": "Nettoyage"
+                "fr": "Nettoyage",
+                "de": "Reinigung",
+                "es": "Limpiando"
               }
             },
             {
               "value": "paused",
               "label": {
                 "en": "Paused",
-                "fr": "En pause"
+                "fr": "En pause",
+                "de": "Pausiert",
+                "es": "En pausa"
               }
             },
             {
               "value": "error",
               "label": {
                 "en": "Error",
-                "fr": "Erreur"
+                "fr": "Erreur",
+                "de": "Fehler",
+                "es": "Error"
               }
             },
             {
               "value": "returning",
               "label": {
                 "en": "Returning",
-                "fr": "Retour en cours"
+                "fr": "Retour en cours",
+                "de": "Kehrt zurück",
+                "es": "Regresando"
               }
             },
             {
               "value": "charging",
               "label": {
                 "en": "Charging",
-                "fr": "En charge"
+                "fr": "En charge",
+                "de": "Lädt",
+                "es": "Cargando"
               }
             },
             {
               "value": "docked",
               "label": {
                 "en": "Docked",
-                "fr": "À la base"
+                "fr": "À la base",
+                "de": "An der Basis",
+                "es": "En la base"
               }
             }
           ]
@@ -233,7 +295,9 @@
           "type": "string",
           "label": {
             "en": "New status",
-            "fr": "Nouvel état"
+            "fr": "Nouvel état",
+            "de": "Neuer Status",
+            "es": "Nuevo estado"
           }
         },
         {
@@ -241,7 +305,9 @@
           "type": "string",
           "label": {
             "en": "Previous status",
-            "fr": "État précédent"
+            "fr": "État précédent",
+            "de": "Vorheriger Status",
+            "es": "Estado anterior"
           }
         },
         {
@@ -249,7 +315,9 @@
           "type": "string",
           "label": {
             "en": "Detailed status",
-            "fr": "État détaillé"
+            "fr": "État détaillé",
+            "de": "Detaillierter Status",
+            "es": "Estado detallado"
           }
         }
       ]
@@ -258,11 +326,15 @@
       "key": "cleaning_finished",
       "label": {
         "en": "Pool cleaning finished",
-        "fr": "Nettoyage de la piscine terminé"
+        "fr": "Nettoyage de la piscine terminé",
+        "de": "Poolreinigung beendet",
+        "es": "Limpieza de la piscina terminada"
       },
       "description": {
         "en": "A cleaning cycle ended normally (not on a fault).",
-        "fr": "Un cycle de nettoyage s'est terminé normalement (pas sur un défaut)."
+        "fr": "Un cycle de nettoyage s'est terminé normalement (pas sur un défaut).",
+        "de": "Ein Reinigungszyklus wurde normal beendet (nicht durch eine Störung).",
+        "es": "Un ciclo de limpieza ha terminado con normalidad (no por un fallo)."
       },
       "fields": [
         {
@@ -271,7 +343,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           }
         }
       ],
@@ -281,7 +355,9 @@
           "type": "number",
           "label": {
             "en": "Duration (minutes)",
-            "fr": "Durée (minutes)"
+            "fr": "Durée (minutes)",
+            "de": "Dauer (Minuten)",
+            "es": "Duración (minutos)"
           }
         },
         {
@@ -289,7 +365,9 @@
           "type": "number",
           "label": {
             "en": "Battery left (%)",
-            "fr": "Batterie restante (%)"
+            "fr": "Batterie restante (%)",
+            "de": "Verbleibender Akku (%)",
+            "es": "Batería restante (%)"
           }
         }
       ]
@@ -298,11 +376,15 @@
       "key": "error_raised",
       "label": {
         "en": "Pool robot fault",
-        "fr": "Défaut du robot piscine"
+        "fr": "Défaut du robot piscine",
+        "de": "Störung des Poolroboters",
+        "es": "Fallo del robot de piscina"
       },
       "description": {
         "en": "A fault appeared: stuck robot, full basket, motor fault…",
-        "fr": "Un défaut est apparu : robot coincé, panier plein, défaut moteur…"
+        "fr": "Un défaut est apparu : robot coincé, panier plein, défaut moteur…",
+        "de": "Eine Störung ist aufgetreten: Roboter steckt fest, Korb voll, Motorfehler…",
+        "es": "Ha aparecido un fallo: robot atascado, cesta llena, fallo del motor…"
       },
       "fields": [
         {
@@ -311,7 +393,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           }
         },
         {
@@ -319,203 +403,261 @@
           "type": "multi_select",
           "label": {
             "en": "Fault",
-            "fr": "Défaut"
+            "fr": "Défaut",
+            "de": "Störung",
+            "es": "Fallo"
           },
           "options": [
             {
               "value": "dust_box_full",
               "label": {
                 "en": "Filter basket full",
-                "fr": "Panier filtrant plein"
+                "fr": "Panier filtrant plein",
+                "de": "Filterkorb voll",
+                "es": "Cesta del filtro llena"
               }
             },
             {
               "value": "dust_box_loss",
               "label": {
                 "en": "Filter basket missing",
-                "fr": "Panier filtrant absent"
+                "fr": "Panier filtrant absent",
+                "de": "Filterkorb fehlt",
+                "es": "Falta la cesta del filtro"
               }
             },
             {
               "value": "power_low",
               "label": {
                 "en": "Battery low",
-                "fr": "Batterie faible"
+                "fr": "Batterie faible",
+                "de": "Akku schwach",
+                "es": "Batería baja"
               }
             },
             {
               "value": "power_cutting",
               "label": {
                 "en": "Power cut",
-                "fr": "Coupure d'alimentation"
+                "fr": "Coupure d'alimentation",
+                "de": "Stromunterbrechung",
+                "es": "Corte de alimentación"
               }
             },
             {
               "value": "env_high_temperature",
               "label": {
                 "en": "Water too hot",
-                "fr": "Eau trop chaude"
+                "fr": "Eau trop chaude",
+                "de": "Wasser zu warm",
+                "es": "Agua demasiado caliente"
               }
             },
             {
               "value": "env_low_temperature",
               "label": {
                 "en": "Water too cold",
-                "fr": "Eau trop froide"
+                "fr": "Eau trop froide",
+                "de": "Wasser zu kalt",
+                "es": "Agua demasiado fría"
               }
             },
             {
               "value": "motor_error",
               "label": {
                 "en": "Motor fault",
-                "fr": "Défaut moteur"
+                "fr": "Défaut moteur",
+                "de": "Motorfehler",
+                "es": "Fallo del motor"
               }
             },
             {
               "value": "motor_wheel_left",
               "label": {
                 "en": "Left track motor fault",
-                "fr": "Défaut moteur chenille gauche"
+                "fr": "Défaut moteur chenille gauche",
+                "de": "Fehler Motor linke Kette",
+                "es": "Fallo del motor de la oruga izquierda"
               }
             },
             {
               "value": "motor_wheel_right",
               "label": {
                 "en": "Right track motor fault",
-                "fr": "Défaut moteur chenille droite"
+                "fr": "Défaut moteur chenille droite",
+                "de": "Fehler Motor rechte Kette",
+                "es": "Fallo del motor de la oruga derecha"
               }
             },
             {
               "value": "motor_thruster_left",
               "label": {
                 "en": "Left thruster fault",
-                "fr": "Défaut propulseur gauche"
+                "fr": "Défaut propulseur gauche",
+                "de": "Fehler linke Düse",
+                "es": "Fallo del propulsor izquierdo"
               }
             },
             {
               "value": "motor_thruster_right",
               "label": {
                 "en": "Right thruster fault",
-                "fr": "Défaut propulseur droit"
+                "fr": "Défaut propulseur droit",
+                "de": "Fehler rechte Düse",
+                "es": "Fallo del propulsor derecho"
               }
             },
             {
               "value": "motor_pump",
               "label": {
                 "en": "Pump motor fault",
-                "fr": "Défaut moteur de pompe"
+                "fr": "Défaut moteur de pompe",
+                "de": "Fehler Pumpenmotor",
+                "es": "Fallo del motor de la bomba"
               }
             },
             {
               "value": "motor_airpump_left",
               "label": {
                 "en": "Left air pump fault",
-                "fr": "Défaut pompe à air gauche"
+                "fr": "Défaut pompe à air gauche",
+                "de": "Fehler linke Luftpumpe",
+                "es": "Fallo de la bomba de aire izquierda"
               }
             },
             {
               "value": "motor_airpump_right",
               "label": {
                 "en": "Right air pump fault",
-                "fr": "Défaut pompe à air droite"
+                "fr": "Défaut pompe à air droite",
+                "de": "Fehler rechte Luftpumpe",
+                "es": "Fallo de la bomba de aire derecha"
               }
             },
             {
               "value": "motor_brush",
               "label": {
                 "en": "Brush motor fault",
-                "fr": "Défaut moteur de brosse"
+                "fr": "Défaut moteur de brosse",
+                "de": "Fehler Bürstenmotor",
+                "es": "Fallo del motor del cepillo"
               }
             },
             {
               "value": "motor_reagent",
               "label": {
                 "en": "Clarifier dispenser fault",
-                "fr": "Défaut du diffuseur de clarifiant"
+                "fr": "Défaut du diffuseur de clarifiant",
+                "de": "Fehler Klärmittel-Dosierer",
+                "es": "Fallo del dosificador de clarificante"
               }
             },
             {
               "value": "motor_rod",
               "label": {
                 "en": "Rod motor fault",
-                "fr": "Défaut moteur de tige"
+                "fr": "Défaut moteur de tige",
+                "de": "Fehler Stangenmotor",
+                "es": "Fallo del motor de la varilla"
               }
             },
             {
               "value": "enter_shawdow_water_error",
               "label": {
                 "en": "Shallow water",
-                "fr": "Eau trop peu profonde"
+                "fr": "Eau trop peu profonde",
+                "de": "Wasser zu flach",
+                "es": "Agua poco profunda"
               }
             },
             {
               "value": "trapped",
               "label": {
                 "en": "Robot stuck",
-                "fr": "Robot coincé"
+                "fr": "Robot coincé",
+                "de": "Roboter steckt fest",
+                "es": "Robot atascado"
               }
             },
             {
               "value": "charge_high_temperature",
               "label": {
                 "en": "Charging too hot",
-                "fr": "Charge : trop chaud"
+                "fr": "Charge : trop chaud",
+                "de": "Laden: zu warm",
+                "es": "Carga: demasiado calor"
               }
             },
             {
               "value": "charge_low_temperature",
               "label": {
                 "en": "Charging too cold",
-                "fr": "Charge : trop froid"
+                "fr": "Charge : trop froid",
+                "de": "Laden: zu kalt",
+                "es": "Carga: demasiado frío"
               }
             },
             {
               "value": "motor_thruster",
               "label": {
                 "en": "Thruster fault",
-                "fr": "Défaut propulseur"
+                "fr": "Défaut propulseur",
+                "de": "Düsenfehler",
+                "es": "Fallo del propulsor"
               }
             },
             {
               "value": "platform_clean_err",
               "label": {
                 "en": "Platform cleaning fault",
-                "fr": "Défaut nettoyage plateforme"
+                "fr": "Défaut nettoyage plateforme",
+                "de": "Fehler Plattformreinigung",
+                "es": "Fallo de limpieza de la plataforma"
               }
             },
             {
               "value": "self_err_spray",
               "label": {
                 "en": "Station: spray fault",
-                "fr": "Station : défaut de pulvérisation"
+                "fr": "Station : défaut de pulvérisation",
+                "de": "Station: Sprühfehler",
+                "es": "Estación: fallo de pulverización"
               }
             },
             {
               "value": "self_err_lever",
               "label": {
                 "en": "Station: lever fault",
-                "fr": "Station : défaut du levier"
+                "fr": "Station : défaut du levier",
+                "de": "Station: Hebelfehler",
+                "es": "Estación: fallo de la palanca"
               }
             },
             {
               "value": "self_err_pusher",
               "label": {
                 "en": "Station: pusher fault",
-                "fr": "Station : défaut du poussoir"
+                "fr": "Station : défaut du poussoir",
+                "de": "Station: Schieberfehler",
+                "es": "Estación: fallo del empujador"
               }
             },
             {
               "value": "self_err_clean_conflict",
               "label": {
                 "en": "Station: cleaning conflict",
-                "fr": "Station : conflit de nettoyage"
+                "fr": "Station : conflit de nettoyage",
+                "de": "Station: Reinigungskonflikt",
+                "es": "Estación: conflicto de limpieza"
               }
             },
             {
               "value": "err_dust_not_install",
               "label": {
                 "en": "Station: bin missing",
-                "fr": "Station : bac absent"
+                "fr": "Station : bac absent",
+                "de": "Station: Behälter fehlt",
+                "es": "Estación: falta el depósito"
               }
             }
           ]
@@ -527,7 +669,9 @@
           "type": "string",
           "label": {
             "en": "Fault code",
-            "fr": "Code du défaut"
+            "fr": "Code du défaut",
+            "de": "Störungscode",
+            "es": "Código del fallo"
           }
         },
         {
@@ -535,7 +679,9 @@
           "type": "string",
           "label": {
             "en": "Fault (English)",
-            "fr": "Défaut (anglais)"
+            "fr": "Défaut (anglais)",
+            "de": "Störung (Englisch)",
+            "es": "Fallo (inglés)"
           }
         },
         {
@@ -543,7 +689,29 @@
           "type": "string",
           "label": {
             "en": "Fault (French)",
-            "fr": "Défaut (français)"
+            "fr": "Défaut (français)",
+            "de": "Störung (Französisch)",
+            "es": "Fallo (francés)"
+          }
+        },
+        {
+          "key": "label_de",
+          "type": "string",
+          "label": {
+            "en": "Fault (German)",
+            "fr": "Défaut (allemand)",
+            "de": "Störung (Deutsch)",
+            "es": "Fallo (alemán)"
+          }
+        },
+        {
+          "key": "label_es",
+          "type": "string",
+          "label": {
+            "en": "Fault (Spanish)",
+            "fr": "Défaut (espagnol)",
+            "de": "Störung (Spanisch)",
+            "es": "Fallo (español)"
           }
         }
       ]
@@ -554,7 +722,9 @@
       "key": "start_cleaning",
       "label": {
         "en": "Start pool cleaning",
-        "fr": "Démarrer le nettoyage de la piscine"
+        "fr": "Démarrer le nettoyage de la piscine",
+        "de": "Poolreinigung starten",
+        "es": "Iniciar la limpieza de la piscina"
       },
       "timeout_seconds": 30,
       "fields": [
@@ -564,7 +734,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           },
           "required": true
         }
@@ -575,11 +747,15 @@
           "type": "boolean",
           "label": {
             "en": "Order sent",
-            "fr": "Ordre envoyé"
+            "fr": "Ordre envoyé",
+            "de": "Befehl gesendet",
+            "es": "Orden enviada"
           },
           "description": {
             "en": "False when the robot does not offer this order.",
-            "fr": "Faux quand le robot ne propose pas cet ordre."
+            "fr": "Faux quand le robot ne propose pas cet ordre.",
+            "de": "Falsch, wenn der Roboter diesen Befehl nicht anbietet.",
+            "es": "Falso cuando el robot no ofrece esta orden."
           }
         }
       ]
@@ -588,7 +764,9 @@
       "key": "pause_cleaning",
       "label": {
         "en": "Pause pool cleaning",
-        "fr": "Mettre en pause le nettoyage"
+        "fr": "Mettre en pause le nettoyage",
+        "de": "Poolreinigung pausieren",
+        "es": "Pausar la limpieza de la piscina"
       },
       "timeout_seconds": 30,
       "fields": [
@@ -598,7 +776,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           },
           "required": true
         }
@@ -609,11 +789,15 @@
           "type": "boolean",
           "label": {
             "en": "Order sent",
-            "fr": "Ordre envoyé"
+            "fr": "Ordre envoyé",
+            "de": "Befehl gesendet",
+            "es": "Orden enviada"
           },
           "description": {
             "en": "False when the robot does not offer this order.",
-            "fr": "Faux quand le robot ne propose pas cet ordre."
+            "fr": "Faux quand le robot ne propose pas cet ordre.",
+            "de": "Falsch, wenn der Roboter diesen Befehl nicht anbietet.",
+            "es": "Falso cuando el robot no ofrece esta orden."
           }
         }
       ]
@@ -622,11 +806,15 @@
       "key": "return_to_base",
       "label": {
         "en": "Send the pool robot back",
-        "fr": "Faire revenir le robot piscine"
+        "fr": "Faire revenir le robot piscine",
+        "de": "Poolroboter zurückrufen",
+        "es": "Hacer volver el robot de piscina"
       },
       "description": {
         "en": "The robot comes back to its base, or to the waterline for pickup.",
-        "fr": "Le robot revient à sa base, ou à la ligne d’eau pour être récupéré."
+        "fr": "Le robot revient à sa base, ou à la ligne d’eau pour être récupéré.",
+        "de": "Der Roboter kehrt zu seiner Basis zurück oder zur Wasserlinie, um herausgenommen zu werden.",
+        "es": "El robot vuelve a su base, o a la línea de flotación para recogerlo."
       },
       "timeout_seconds": 30,
       "fields": [
@@ -636,7 +824,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           },
           "required": true
         }
@@ -647,11 +837,15 @@
           "type": "boolean",
           "label": {
             "en": "Order sent",
-            "fr": "Ordre envoyé"
+            "fr": "Ordre envoyé",
+            "de": "Befehl gesendet",
+            "es": "Orden enviada"
           },
           "description": {
             "en": "False when the robot does not offer this order.",
-            "fr": "Faux quand le robot ne propose pas cet ordre."
+            "fr": "Faux quand le robot ne propose pas cet ordre.",
+            "de": "Falsch, wenn der Roboter diesen Befehl nicht anbietet.",
+            "es": "Falso cuando el robot no ofrece esta orden."
           }
         }
       ]
@@ -660,11 +854,15 @@
       "key": "set_cleaning_mode",
       "label": {
         "en": "Set the cleaning mode",
-        "fr": "Choisir le mode de nettoyage"
+        "fr": "Choisir le mode de nettoyage",
+        "de": "Reinigungsmodus festlegen",
+        "es": "Elegir el modo de limpieza"
       },
       "description": {
         "en": "Mode name as shown on the device in Gladys (e.g. a floor or wall mode).",
-        "fr": "Nom du mode tel qu'affiché sur l'appareil dans Gladys (par exemple un mode fond ou parois)."
+        "fr": "Nom du mode tel qu'affiché sur l'appareil dans Gladys (par exemple un mode fond ou parois).",
+        "de": "Name des Modus, wie er am Gerät in Gladys angezeigt wird (z. B. ein Boden- oder Wandmodus).",
+        "es": "Nombre del modo tal y como aparece en el dispositivo en Gladys (por ejemplo, un modo suelo o paredes)."
       },
       "timeout_seconds": 30,
       "fields": [
@@ -674,7 +872,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           },
           "required": true
         },
@@ -683,11 +883,15 @@
           "type": "string",
           "label": {
             "en": "Mode",
-            "fr": "Mode"
+            "fr": "Mode",
+            "de": "Modus",
+            "es": "Modo"
           },
           "placeholder": {
             "en": "Mode name",
-            "fr": "Nom du mode"
+            "fr": "Nom du mode",
+            "de": "Name des Modus",
+            "es": "Nombre del modo"
           },
           "required": true
         }
@@ -698,11 +902,15 @@
           "type": "boolean",
           "label": {
             "en": "Order sent",
-            "fr": "Ordre envoyé"
+            "fr": "Ordre envoyé",
+            "de": "Befehl gesendet",
+            "es": "Orden enviada"
           },
           "description": {
             "en": "False when the robot does not offer this order.",
-            "fr": "Faux quand le robot ne propose pas cet ordre."
+            "fr": "Faux quand le robot ne propose pas cet ordre.",
+            "de": "Falsch, wenn der Roboter diesen Befehl nicht anbietet.",
+            "es": "Falso cuando el robot no ofrece esta orden."
           }
         }
       ]
@@ -713,11 +921,15 @@
       "key": "pool_robot",
       "label": {
         "en": "Pool robot",
-        "fr": "Robot piscine"
+        "fr": "Robot piscine",
+        "de": "Poolroboter",
+        "es": "Robot de piscina"
       },
       "description": {
         "en": "Battery, status, fault, Start / Pause / Return buttons and cleaning mode.",
-        "fr": "Batterie, état, défaut, boutons Démarrer / Pause / Retour et mode de nettoyage."
+        "fr": "Batterie, état, défaut, boutons Démarrer / Pause / Retour et mode de nettoyage.",
+        "de": "Akku, Status, Störung, Schaltflächen Starten / Pause / Zurück und Reinigungsmodus.",
+        "es": "Batería, estado, fallo, botones Iniciar / Pausa / Volver y modo de limpieza."
       },
       "icon": "droplet",
       "settings": [
@@ -727,7 +939,9 @@
           "source": "devices",
           "label": {
             "en": "Robot",
-            "fr": "Robot"
+            "fr": "Robot",
+            "de": "Roboter",
+            "es": "Robot"
           },
           "required": true
         }

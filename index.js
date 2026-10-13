@@ -103,6 +103,8 @@ gladys.on('connected', async () => {
       .setConnectionStatus(false, {
         en: 'Initialization failed, check the integration logs.',
         fr: "L'initialisation a échoué, consultez les logs de l'intégration.",
+        de: 'Die Initialisierung ist fehlgeschlagen, sehen Sie sich die Protokolle der Integration an.',
+        es: 'La inicialización ha fallado, consulte los registros de la integración.',
       })
       .catch(() => {});
   }
