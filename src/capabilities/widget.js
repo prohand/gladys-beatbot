@@ -83,7 +83,7 @@ export function buildPoolRobotContent(service, externalId) {
     return textOnly({
       en: 'Link your Beatbot account in the integration configuration.',
       fr: "Liez votre compte Beatbot dans la configuration de l'intégration.",
-      de: 'Verknüpfen Sie Ihr Beatbot-Konto in der Konfiguration der Integration.',
+      de: 'Verknüpfe dein Beatbot-Konto in der Konfiguration der Integration.',
       es: 'Vincule su cuenta de Beatbot en la configuración de la integración.',
     });
   }
@@ -92,7 +92,7 @@ export function buildPoolRobotContent(service, externalId) {
     return textOnly({
       en: 'Robot not found: pick it again in the widget settings.',
       fr: 'Robot introuvable : choisissez-le à nouveau dans les réglages du widget.',
-      de: 'Roboter nicht gefunden: Wählen Sie ihn in den Widget-Einstellungen erneut aus.',
+      de: 'Roboter nicht gefunden: Wähle ihn in den Widget-Einstellungen erneut aus.',
       es: 'Robot no encontrado: vuelva a elegirlo en la configuración del widget.',
     });
   }
@@ -256,7 +256,7 @@ async function setCleaningMode(service, params, values) {
     return {
       en: 'Choose the mode in the form of the button (Gladys 5.2 or later).',
       fr: 'Choisissez le mode dans le formulaire du bouton (Gladys 5.2 ou plus récent).',
-      de: 'Wählen Sie den Modus im Formular der Schaltfläche (Gladys 5.2 oder neuer).',
+      de: 'Wähle den Modus im Formular der Schaltfläche (Gladys 5.2 oder neuer).',
       es: 'Elija el modo en el formulario del botón (Gladys 5.2 o posterior).',
     };
   }

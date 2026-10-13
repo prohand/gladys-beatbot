@@ -5,7 +5,7 @@
   "description": {
     "en": "Control your Beatbot pool robots: status, battery, cleaning and alerts.",
     "fr": "Pilotez vos robots piscine Beatbot : état, batterie, nettoyage et alertes.",
-    "de": "Steuern Sie Ihre Beatbot-Poolroboter: Status, Akku, Reinigung und Warnungen.",
+    "de": "Steuere deine Beatbot-Poolroboter: Status, Akku, Reinigung und Warnungen.",
     "es": "Controle sus robots de piscina Beatbot: estado, batería, limpieza y alertas."
   },
   "version": "1.1.0",
@@ -27,7 +27,7 @@
       "description": {
         "en": "Your robots must already work in the Beatbot app. Click Connect and sign in with your Beatbot account: Gladys then finds every pool robot of the account. Beatbot robots are reached through the Beatbot cloud only, Internet access is required.",
         "fr": "Vos robots doivent déjà fonctionner dans l'application Beatbot. Cliquez sur Connecter et identifiez-vous avec votre compte Beatbot : Gladys retrouve alors tous les robots piscine du compte. Les robots Beatbot ne sont joignables que par le cloud Beatbot, un accès Internet est nécessaire.",
-        "de": "Ihre Roboter müssen bereits in der Beatbot-App funktionieren. Klicken Sie auf Verbinden und melden Sie sich mit Ihrem Beatbot-Konto an: Gladys findet dann alle Poolroboter des Kontos. Beatbot-Roboter sind nur über die Beatbot-Cloud erreichbar, ein Internetzugang ist erforderlich.",
+        "de": "Deine Roboter müssen bereits in der Beatbot-App funktionieren. Klicke auf Verbinden und melde dich mit deinem Beatbot-Konto an: Gladys findet dann alle Poolroboter des Kontos. Beatbot-Roboter sind nur über die Beatbot-Cloud erreichbar, ein Internetzugang ist erforderlich.",
         "es": "Sus robots ya deben funcionar en la aplicación Beatbot. Pulse Conectar e inicie sesión con su cuenta de Beatbot: Gladys encontrará entonces todos los robots de piscina de la cuenta. Los robots Beatbot solo son accesibles a través de la nube de Beatbot, se necesita acceso a Internet."
       },
       "links": [
@@ -63,7 +63,7 @@
       "description": {
         "en": "Opens the Beatbot sign-in page. Your password never goes through Gladys.",
         "fr": "Ouvre la page de connexion Beatbot. Votre mot de passe ne passe jamais par Gladys.",
-        "de": "Öffnet die Anmeldeseite von Beatbot. Ihr Passwort läuft nie über Gladys.",
+        "de": "Öffnet die Anmeldeseite von Beatbot. Dein Passwort läuft nie über Gladys.",
         "es": "Abre la página de inicio de sesión de Beatbot. Su contraseña nunca pasa por Gladys."
       }
     },
@@ -79,7 +79,7 @@
       "description": {
         "en": "Where your Beatbot account is hosted. Automatic reads it from the account: change it only if the connection status asks you to.",
         "fr": "Où votre compte Beatbot est hébergé. Automatique le lit dans le compte : ne le changez que si l'état de connexion vous le demande.",
-        "de": "Wo Ihr Beatbot-Konto gehostet wird. Automatisch liest sie aus dem Konto: Ändern Sie sie nur, wenn der Verbindungsstatus Sie dazu auffordert.",
+        "de": "Wo dein Beatbot-Konto gehostet wird. Automatisch liest sie aus dem Konto: Ändere sie nur, wenn der Verbindungsstatus dich dazu auffordert.",
         "es": "Dónde está alojada su cuenta de Beatbot. Automática la lee de la cuenta: cámbiela solo si el estado de conexión se lo pide."
       },
       "required": false,
@@ -135,7 +135,7 @@
       "description": {
         "en": "States arrive in real time; this periodic full read only catches what a network outage made you miss.",
         "fr": "Les états arrivent en temps réel ; cette lecture complète périodique rattrape seulement ce qu'une coupure réseau aurait fait manquer.",
-        "de": "Die Zustände kommen in Echtzeit an; dieses regelmäßige vollständige Auslesen holt nur nach, was Ihnen durch einen Netzwerkausfall entgangen ist.",
+        "de": "Die Zustände kommen in Echtzeit an; dieses regelmäßige vollständige Auslesen holt nur nach, was dir durch einen Netzwerkausfall entgangen ist.",
         "es": "Los estados llegan en tiempo real; esta lectura completa periódica solo recupera lo que un corte de red le haya hecho perder."
       },
       "placeholder": {
@@ -161,7 +161,7 @@
       "description": {
         "en": "Leave as is unless Beatbot gave you another client ID. Click Connect again after changing it.",
         "fr": "Laissez tel quel, sauf si Beatbot vous a fourni un autre identifiant client. Cliquez à nouveau sur Connecter après l'avoir changé.",
-        "de": "Unverändert lassen, außer Beatbot hat Ihnen eine andere Client-ID gegeben. Klicken Sie nach einer Änderung erneut auf Verbinden.",
+        "de": "Unverändert lassen, außer Beatbot hat dir eine andere Client-ID gegeben. Klicke nach einer Änderung erneut auf Verbinden.",
         "es": "Déjelo tal cual, salvo que Beatbot le haya dado otro ID de cliente. Pulse de nuevo Conectar después de cambiarlo."
       },
       "placeholder": {

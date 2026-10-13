@@ -21,7 +21,7 @@ Beatbot.
    el acceso. Su contraseña se escribe en la página de Beatbot, nunca pasa por
    Gladys.
 4. De vuelta en Gladys, el estado de conexión se pone en verde y sus robots
-   aparecen en la pestaña **Descubrir**, listos para añadirlos.
+   aparecen en la pestaña **Descubrir**: pulse **Añadir a Gladys** en cada uno.
 
 El botón **Probar la conexión** lista los robots encontrados, su estado y su
 batería.
@@ -92,7 +92,8 @@ Ejemplos: «cuando termine la limpieza, recibir un mensaje con su duración», o
 
 ## Panel
 
-Añada el widget **Robot de piscina** y elija el robot: muestra la batería en
+En **Panel → Editar → Nuevo widget**, añada el widget **Robot de piscina** (en
+**Widgets de integraciones**) y elija el robot: muestra la batería en
 directo, el estado, el fallo actual, la conexión, el modo y la duración de la
 última limpieza, con los botones **Iniciar**, **Pausa** y **Volver**.
 
@@ -113,5 +114,5 @@ integración).
   por ejemplo) puede estar usando la misma cuenta de Beatbot y haberse quedado
   con la conexión en tiempo real. Los estados se siguen actualizando en cada
   actualización completa.
-- Los registros de la integración están disponibles desde Gladys. Nunca
+- Los registros de la integración están en su pestaña **Registros** en Gladys. Nunca
   contienen sus tokens.

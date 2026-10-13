@@ -40,7 +40,7 @@ export const ACTIONS = {
       return {
         en: 'No Beatbot account linked yet: click Connect first.',
         fr: "Aucun compte Beatbot lié : cliquez d'abord sur Connecter.",
-        de: 'Noch kein Beatbot-Konto verknüpft: Klicken Sie zuerst auf Verbinden.',
+        de: 'Noch kein Beatbot-Konto verknüpft: Klicke zuerst auf Verbinden.',
         es: 'Aún no hay ninguna cuenta de Beatbot vinculada: pulse primero Conectar.',
       };
     }
@@ -49,7 +49,7 @@ export const ACTIONS = {
       return {
         en: 'The region of the account is unknown: choose it in the Region field and save.',
         fr: 'La région du compte est inconnue : choisissez-la dans le champ Région et enregistrez.',
-        de: 'Die Region des Kontos ist unbekannt: Wählen Sie sie im Feld Region und speichern Sie.',
+        de: 'Die Region des Kontos ist unbekannt: Wähle sie im Feld Region und speichere.',
         es: 'La región de la cuenta es desconocida: elíjala en el campo Región y guarde.',
       };
     }
@@ -60,7 +60,7 @@ export const ACTIONS = {
       return {
         en: 'The Beatbot authorization is no longer valid: click Connect again.',
         fr: "L'autorisation Beatbot n'est plus valide : cliquez à nouveau sur Connecter.",
-        de: 'Die Beatbot-Autorisierung ist nicht mehr gültig: Klicken Sie erneut auf Verbinden.',
+        de: 'Die Beatbot-Autorisierung ist nicht mehr gültig: Klicke erneut auf Verbinden.',
         es: 'La autorización de Beatbot ya no es válida: pulse de nuevo Conectar.',
       };
     }
@@ -94,7 +94,7 @@ export const ACTIONS = {
         return {
           en: 'The Beatbot authorization is no longer valid: click Connect again.',
           fr: "L'autorisation Beatbot n'est plus valide : cliquez à nouveau sur Connecter.",
-          de: 'Die Beatbot-Autorisierung ist nicht mehr gültig: Klicken Sie erneut auf Verbinden.',
+          de: 'Die Beatbot-Autorisierung ist nicht mehr gültig: Klicke erneut auf Verbinden.',
           es: 'La autorización de Beatbot ya no es válida: pulse de nuevo Conectar.',
         };
       }

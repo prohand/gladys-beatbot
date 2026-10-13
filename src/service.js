@@ -43,19 +43,19 @@ export const MESSAGES = {
   NOT_LINKED: {
     en: 'Click Connect to link your Beatbot account.',
     fr: 'Cliquez sur Connecter pour lier votre compte Beatbot.',
-    de: 'Klicken Sie auf Verbinden, um Ihr Beatbot-Konto zu verknüpfen.',
+    de: 'Klicke auf Verbinden, um dein Beatbot-Konto zu verknüpfen.',
     es: 'Pulse Conectar para vincular su cuenta de Beatbot.',
   },
   UNKNOWN_REGION: {
     en: 'Your Beatbot account did not give its region: choose it in the Region field.',
     fr: "Votre compte Beatbot n'a pas indiqué sa région : choisissez-la dans le champ Région.",
-    de: 'Ihr Beatbot-Konto hat seine Region nicht angegeben: Wählen Sie sie im Feld Region.',
+    de: 'Dein Beatbot-Konto hat seine Region nicht angegeben: Wähle sie im Feld Region.',
     es: 'Su cuenta de Beatbot no ha indicado su región: elíjala en el campo Región.',
   },
   AUTH_LOST: {
     en: 'The Beatbot authorization expired or was revoked: click Connect again.',
     fr: "L'autorisation Beatbot a expiré ou a été révoquée : cliquez à nouveau sur Connecter.",
-    de: 'Die Beatbot-Autorisierung ist abgelaufen oder wurde widerrufen: Klicken Sie erneut auf Verbinden.',
+    de: 'Die Beatbot-Autorisierung ist abgelaufen oder wurde widerrufen: Klicke erneut auf Verbinden.',
     es: 'La autorización de Beatbot ha caducado o se ha revocado: pulse de nuevo Conectar.',
   },
   UNREACHABLE: {
