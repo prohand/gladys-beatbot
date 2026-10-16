@@ -10,6 +10,8 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-10-16
+
 ### Changed
 
 - The integration logs show when Connect is clicked and why a sign-in fails.
@@ -71,7 +73,8 @@ of the version's GitHub Release.
   release workflow, GitHub Releases, Dependabot.
 - `SECURITY.md`, `CLAUDE.md` and the user documentation in English and French.
 
-[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/prohand/gladys-beatbot/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/prohand/gladys-beatbot/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/prohand/gladys-beatbot/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/prohand/gladys-beatbot/releases/tag/v1.0.0
