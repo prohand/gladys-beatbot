@@ -34,6 +34,18 @@ Status und ihren Akkustand auf.
 | **Vollständige Aktualisierung** | Die Zustände kommen in Echtzeit an. Dieses vollständige Auslesen (standardmäßig alle 10 min) holt nach, was dir durch einen Netzwerkausfall entgangen ist. |
 | **OAuth-Client-ID**             | Erweitert. Behalte den Standardwert, außer Beatbot hat dir eine andere Client-ID gegeben.                                                                  |
 
+### Wenn Verbinden nichts tut
+
+Gladys öffnet die Anmeldeseite von Beatbot in einem neuen Tab. Öffnet sich
+kein Tab, hat der Browser ihn wahrscheinlich als Pop-up blockiert (Safari auf
+iPhone und iPad tut das oft): Erlaube Pop-ups für die Adresse deines Gladys
+(auf dem iPhone: **Einstellungen → Apps → Safari → Pop-ups blockieren**, aus)
+oder nimm einen Computer, und klicke dann erneut auf **Verbinden**.
+
+Der Wert `home-assistant` der **OAuth-Client-ID** ist nur der Name des
+öffentlichen Clients, den Beatbot für die Hausautomation veröffentlicht: Home
+Assistant brauchst du nicht.
+
 ### Wenn die Beatbot-Seite die Anmeldung verweigert
 
 Die Integration nutzt den „Open API“-Zugang, den Beatbot für die

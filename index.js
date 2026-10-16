@@ -36,11 +36,26 @@ const service = new BeatbotService({
 // --- OAuth2: the "Connect" button of the Configuration screen ----------------
 // Gladys relays the browser flow: it asks for the authorization URL (with its
 // own redirect URI), then hands back the code. Tokens are stored off-schema.
-gladys.onOAuthAuthorizeUrl(async (_key, redirectUri) => service.getAuthorizeUrl(redirectUri));
+// The SDK turns a thrown error into a failed acknowledgement without logging
+// it: log here, or a failed sign-in leaves the integration logs empty.
+gladys.onOAuthAuthorizeUrl(async (_key, redirectUri) => {
+  logger.info('Beatbot sign-in requested (Connect clicked)');
+  try {
+    return service.getAuthorizeUrl(redirectUri);
+  } catch (err) {
+    logger.warn(`Beatbot sign-in could not start: ${err.message}`);
+    throw err;
+  }
+});
 
 gladys.onOAuthCallback(async (_key, params) => {
   logger.info('Beatbot sign-in callback received');
-  await service.completeAuthorization(params);
+  try {
+    await service.completeAuthorization(params);
+  } catch (err) {
+    logger.warn(`Beatbot sign-in failed: ${err.message}`);
+    throw err;
+  }
 });
 
 // --- Discovery: Gladys asks for the list of devices --------------------------

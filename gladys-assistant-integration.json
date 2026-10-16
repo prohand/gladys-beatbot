@@ -159,10 +159,10 @@
         "es": "ID de cliente OAuth (avanzado)"
       },
       "description": {
-        "en": "Leave as is unless Beatbot gave you another client ID. Click Connect again after changing it.",
-        "fr": "Laissez tel quel, sauf si Beatbot vous a fourni un autre identifiant client. Cliquez à nouveau sur Connecter après l'avoir changé.",
-        "de": "Unverändert lassen, außer Beatbot hat dir eine andere Client-ID gegeben. Klicke nach einer Änderung erneut auf Verbinden.",
-        "es": "Déjelo tal cual, salvo que Beatbot le haya dado otro ID de cliente. Pulse de nuevo Conectar después de cambiarlo."
+        "en": "Leave as is unless Beatbot gave you another client ID. \"home-assistant\" is only the name of the public client Beatbot publishes: you do not need Home Assistant. Click Connect again after changing it.",
+        "fr": "Laissez tel quel, sauf si Beatbot vous a fourni un autre identifiant client. « home-assistant » est seulement le nom du client public publié par Beatbot : Home Assistant n'est pas nécessaire. Cliquez à nouveau sur Connecter après l'avoir changé.",
+        "de": "Unverändert lassen, außer Beatbot hat dir eine andere Client-ID gegeben. „home-assistant“ ist nur der Name des öffentlichen Clients, den Beatbot veröffentlicht: Home Assistant brauchst du nicht. Klicke nach einer Änderung erneut auf Verbinden.",
+        "es": "Déjelo tal cual, salvo que Beatbot le haya dado otro ID de cliente. «home-assistant» es solo el nombre del cliente público que publica Beatbot: no necesita Home Assistant. Pulse de nuevo Conectar después de cambiarlo."
       },
       "placeholder": {
         "en": "home-assistant",
