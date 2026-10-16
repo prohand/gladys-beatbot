@@ -10,6 +10,13 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Changed
+
+- The integration logs show when Connect is clicked and why a sign-in fails.
+- Configuration screen and documentation: say that `home-assistant` is only the
+  name of Beatbot's public client (Home Assistant is not needed), and what to do
+  when Connect opens nothing (pop-up blocked by the browser).
+
 ## [1.2.0] - 2026-10-13
 
 ### Added

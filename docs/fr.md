@@ -33,6 +33,19 @@ batterie.
 | **Rafraîchissement complet** | Les états arrivent en temps réel. Cette lecture complète (10 min par défaut) rattrape ce qu'une coupure réseau aurait fait manquer.             |
 | **Identifiant client OAuth** | Réglage avancé. Laissez la valeur par défaut, sauf si Beatbot vous a fourni un autre identifiant.                                               |
 
+### Si le bouton Connecter ne fait rien
+
+Gladys ouvre la page de connexion Beatbot dans un nouvel onglet. Si aucun
+onglet ne s'ouvre, le navigateur l'a sans doute bloqué comme fenêtre pop-up
+(Safari sur iPhone et iPad le fait souvent) : autorisez les pop-ups pour
+l'adresse de votre Gladys (sur iPhone : **Réglages → Apps → Safari → Bloquer
+les pop-ups**, désactivé), ou passez par un ordinateur, puis cliquez à nouveau
+sur **Connecter**.
+
+La valeur `home-assistant` de **Identifiant client OAuth** est seulement le nom
+du client public que Beatbot publie pour la domotique : Home Assistant n'est
+pas nécessaire.
+
 ### Si la page Beatbot refuse la connexion
 
 L'intégration utilise l'accès « open API » que Beatbot publie pour la

@@ -34,6 +34,19 @@ batería.
 | **Actualización completa** | Los estados llegan en tiempo real. Esta lectura completa (cada 10 min por defecto) recupera lo que un corte de red le haya hecho perder. |
 | **ID de cliente OAuth**    | Avanzado. Mantenga el valor por defecto, salvo que Beatbot le haya dado otro ID de cliente.                                              |
 
+### Si Conectar no hace nada
+
+Gladys abre la página de inicio de sesión de Beatbot en una pestaña nueva. Si
+no se abre ninguna pestaña, lo más probable es que el navegador la haya
+bloqueado como ventana emergente (Safari en iPhone y iPad lo hace a menudo):
+permita las ventanas emergentes para la dirección de su Gladys (en iPhone:
+**Ajustes → Apps → Safari → Bloquear ventanas**, desactivado) o use un
+ordenador, y vuelva a pulsar **Conectar**.
+
+El valor `home-assistant` de **ID de cliente OAuth** es solo el nombre del
+cliente público que Beatbot publica para la domótica: no necesita Home
+Assistant.
+
 ### Si la página de Beatbot rechaza el inicio de sesión
 
 La integración utiliza el acceso «open API» que Beatbot publica para la

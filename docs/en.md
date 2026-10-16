@@ -32,6 +32,18 @@ their battery.
 | **Full refresh**    | States arrive in real time. This full read (every 10 min by default) catches what a network outage made you miss.                |
 | **OAuth client ID** | Advanced. Keep the default unless Beatbot gave you another client ID.                                                            |
 
+### If Connect does nothing
+
+Gladys opens the Beatbot sign-in page in a new tab. If no tab opens, the
+browser most likely blocked it as a pop-up (Safari on iPhone and iPad does it
+often): allow pop-ups for the address of your Gladys (on iPhone: **Settings →
+Apps → Safari → Block Pop-ups**, off), or use a computer, then click
+**Connect** again.
+
+The `home-assistant` value of **OAuth client ID** is only the name of the
+public client Beatbot publishes for home automation: you do not need Home
+Assistant.
+
 ### If the Beatbot page refuses the sign-in
 
 The integration uses the "open API" access Beatbot publishes for home
