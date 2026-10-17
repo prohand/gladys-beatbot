@@ -50,11 +50,28 @@ Assistant.
 ### Si la página de Beatbot rechaza el inicio de sesión
 
 La integración utiliza el acceso «open API» que Beatbot publica para la
-domótica, con el ID de cliente público de Beatbot. Si la página de Beatbot
-muestra un error (por ejemplo, sobre la dirección de retorno, `redirect_uri`),
-Beatbot todavía no acepta la dirección de retorno de su Gladys para ese ID de
-cliente: pida al soporte de Beatbot un ID de cliente para Gladys, escríbalo en
-**ID de cliente OAuth**, guarde y vuelva a pulsar **Conectar**.
+domótica, con el ID de cliente público de Beatbot.
+
+**Problema conocido: «Whitelabel Error Page … status=400».** Después de
+escribir su correo y su contraseña, la página de Beatbot puede mostrar:
+
+```
+Whitelabel Error Page
+There was an unexpected error (type=Bad Request, status=400).
+```
+
+- No es su contraseña: la página de Beatbot solo comprueba la dirección de
+  retorno de Gladys después del inicio de sesión, y todavía no la acepta para
+  el ID de cliente público.
+- Hay una solicitud abierta en Beatbot para aceptar Gladys: sígala en
+  [GitHub](https://github.com/Beatbot-Robotics/beatbot-cloud-python/issues/6). Hasta entonces no se puede corregir nada del lado de
+  Gladys.
+- Ahora tiene la sesión iniciada en Beatbot, así que cada nuevo intento va
+  directamente a este error. Para volver a ver la página de inicio de sesión,
+  use una ventana privada del navegador (o borre las cookies de
+  `oauth.beatbot.com`).
+- Si Beatbot le da un ID de cliente para Gladys, escríbalo en **ID de cliente
+  OAuth**, guarde y vuelva a pulsar **Conectar**.
 
 ## Lo que obtiene
 

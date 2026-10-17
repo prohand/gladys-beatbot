@@ -10,6 +10,12 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Changed
+
+- Documentation: explain the "Whitelabel Error Page … status=400" shown by the
+  Beatbot page after sign-in (Beatbot does not accept the Gladys return address
+  yet, request open at Beatbot), and how to get the sign-in page back.
+
 ## [1.2.1] - 2026-10-16
 
 ### Changed

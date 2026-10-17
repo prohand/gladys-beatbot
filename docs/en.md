@@ -47,11 +47,26 @@ Assistant.
 ### If the Beatbot page refuses the sign-in
 
 The integration uses the "open API" access Beatbot publishes for home
-automation, with Beatbot's public client ID. If the Beatbot page shows an error
-(for example about the return address, `redirect_uri`), Beatbot does not accept
-your Gladys return address for that client ID yet: ask Beatbot support for a
-client ID for Gladys, type it in **OAuth client ID**, save, then click
-**Connect** again.
+automation, with Beatbot's public client ID.
+
+**Known issue: "Whitelabel Error Page … status=400".** After you type your
+email and password, the Beatbot page may show:
+
+```
+Whitelabel Error Page
+There was an unexpected error (type=Bad Request, status=400).
+```
+
+- This is not your password: the Beatbot page checks the return address of
+  Gladys only after the sign-in, and does not accept it yet for the public
+  client ID.
+- A request is open at Beatbot to accept Gladys: follow it on
+  [GitHub](https://github.com/Beatbot-Robotics/beatbot-cloud-python/issues/6). Nothing can be fixed on the Gladys side until then.
+- You are now signed in at Beatbot, so every new try goes straight to this
+  error. To start again from the sign-in page, use a private browser window
+  (or delete the cookies of `oauth.beatbot.com`).
+- If Beatbot gives you a client ID for Gladys, type it in **OAuth client ID**,
+  save, then click **Connect** again.
 
 ## What you get
 

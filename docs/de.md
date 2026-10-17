@@ -50,11 +50,26 @@ Assistant brauchst du nicht.
 
 Die Integration nutzt den „Open API“-Zugang, den Beatbot für die
 Hausautomation veröffentlicht, mit der öffentlichen Client-ID von Beatbot.
-Zeigt die Beatbot-Seite einen Fehler an (zum Beispiel zur Rücksprungadresse,
-`redirect_uri`), akzeptiert Beatbot deine Gladys-Rücksprungadresse für diese
-Client-ID noch nicht: Bitte den Beatbot-Support um eine Client-ID für
-Gladys, trage sie in **OAuth-Client-ID** ein, speichere und klicke
-dann erneut auf **Verbinden**.
+
+**Bekanntes Problem: „Whitelabel Error Page … status=400“.** Nachdem du deine
+E-Mail-Adresse und dein Passwort eingegeben hast, kann die Beatbot-Seite
+Folgendes zeigen:
+
+```
+Whitelabel Error Page
+There was an unexpected error (type=Bad Request, status=400).
+```
+
+- Es liegt nicht an deinem Passwort: Die Beatbot-Seite prüft die
+  Rücksprungadresse von Gladys erst nach der Anmeldung und akzeptiert sie für
+  die öffentliche Client-ID noch nicht.
+- Bei Beatbot ist eine Anfrage offen, Gladys zu akzeptieren: Verfolge sie auf
+  [GitHub](https://github.com/Beatbot-Robotics/beatbot-cloud-python/issues/6). Bis dahin lässt sich auf der Gladys-Seite nichts beheben.
+- Du bist jetzt bei Beatbot angemeldet, daher landet jeder neue Versuch direkt
+  bei diesem Fehler. Um wieder die Anmeldeseite zu sehen, nutze ein privates
+  Browserfenster (oder lösche die Cookies von `oauth.beatbot.com`).
+- Gibt dir Beatbot eine Client-ID für Gladys, trage sie in **OAuth-Client-ID**
+  ein, speichere und klicke dann erneut auf **Verbinden**.
 
 ## Was du erhältst
 
