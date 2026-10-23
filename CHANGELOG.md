@@ -10,6 +10,10 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.2.3] - 2026-10-23
+
+- Maintenance release, no functional change.
+
 ## [1.2.2] - 2026-10-17
 
 ### Changed
@@ -81,7 +85,8 @@ of the version's GitHub Release.
   release workflow, GitHub Releases, Dependabot.
 - `SECURITY.md`, `CLAUDE.md` and the user documentation in English and French.
 
-[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/prohand/gladys-beatbot/compare/v1.2.3...HEAD
+[1.2.3]: https://github.com/prohand/gladys-beatbot/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/prohand/gladys-beatbot/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/prohand/gladys-beatbot/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/prohand/gladys-beatbot/compare/v1.1.0...v1.2.0
