@@ -6,6 +6,7 @@ Beatbot.
 
 ## Antes de empezar
 
+- **Gladys 5.3 o posterior**.
 - Sus robots ya deben funcionar en la **aplicación Beatbot** (cuenta creada,
   robot emparejado, wifi configurado).
 - Los robots Beatbot se controlan **solo a través de la nube de Beatbot**:
@@ -129,8 +130,8 @@ directo, el estado, el fallo actual, la conexión, el modo y la duración de la
 
 Cuando el robot permite cambiar su modo de limpieza, un botón **Modo de
 limpieza** abre un pequeño formulario con los modos de ese robot, con el actual
-ya seleccionado: elija uno y envíelo (Gladys 5.2 o posterior, necesario para la
-integración).
+ya seleccionado: elija uno y envíelo (una función de
+Gladys 5.2, incluida en el Gladys 5.3 que necesita la integración).
 
 ## Solución de problemas
 

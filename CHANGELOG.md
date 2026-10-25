@@ -10,6 +10,26 @@ of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Added
+
+- Search keywords in the Gladys catalog (AquaSense, Sora, pool cleaner, pool vacuum…), so the
+  integration is found by what users type.
+
+### Changed
+
+- **Gladys 5.3.0 or later is now required** (the catalog keywords are a Gladys 5.3 manifest
+  field).
+- Gladys integration SDK 0.16.
+- Only the values that changed are sent to Gladys (every value again after 30 minutes): the
+  periodic refresh and the live events no longer add an identical history entry each time.
+- The pull-request CI runs the store checks without the image check, and the Release workflow
+  runs the full store check once the image is published.
+
+### Fixed
+
+- A robot just added in Gladys shows its values at once, instead of after the next event or
+  full refresh.
+
 ## [1.2.3] - 2026-10-23
 
 - Maintenance release, no functional change.

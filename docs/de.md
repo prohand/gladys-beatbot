@@ -6,6 +6,7 @@ Beatbot-Cloud.
 
 ## Bevor du beginnst
 
+- **Gladys 5.3 oder neuer**.
 - Deine Roboter müssen bereits in der **Beatbot-App** funktionieren (Konto
   erstellt, Roboter gekoppelt, WLAN eingerichtet).
 - Beatbot-Roboter werden **ausschließlich über die Beatbot-Cloud** gesteuert:
@@ -130,7 +131,8 @@ und die Dauer der letzten Reinigung, mit den Schaltflächen **Starten**,
 Wenn der Roboter das Ändern seines Reinigungsmodus erlaubt, öffnet eine
 Schaltfläche **Reinigungsmodus** ein kleines Formular mit den Modi dieses
 Roboters, mit dem aktuellen vorausgefüllt: Wähle einen aus und sende
-ihn (Gladys 5.2 oder neuer, von der Integration vorausgesetzt).
+ihn (eine Funktion von
+Gladys 5.2, enthalten im von der Integration vorausgesetzten Gladys 5.3).
 
 ## Fehlerbehebung
 

@@ -7,8 +7,8 @@ through the Beatbot cloud. Built on the official
 [`@gladysassistant/integration-sdk`](https://github.com/GladysAssistant/integration-sdk-js).
 
 - **Transport: cloud only** (`"transports": ["cloud"]`) — Beatbot robots have no local API.
-- **Requires Gladys ≥ 5.2.0** (scene triggers, scene actions, dashboard widget, and the form
-  of its Cleaning mode button).
+- **Requires Gladys ≥ 5.3.0** (scene triggers, scene actions, dashboard widget, the form of
+  its Cleaning mode button, and the catalog keywords of the manifest).
 - User documentation: [English](docs/en.md) · [Français](docs/fr.md) · [Deutsch](docs/de.md) ·
   [Español](docs/es.md).
 

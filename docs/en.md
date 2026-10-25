@@ -5,6 +5,7 @@ Sora… ranges) and their **cleaning base station**, through the Beatbot cloud.
 
 ## Before you start
 
+- **Gladys 5.3 or later**.
 - Your robots must already work in the **Beatbot app** (account created, robot
   paired, Wi-Fi set up).
 - Beatbot robots are controlled **through the Beatbot cloud only**: Gladys
@@ -123,7 +124,8 @@ cleaning took, with **Start**, **Pause** and **Return** buttons.
 
 When the robot lets its cleaning mode be changed, a **Cleaning mode** button
 opens a small form listing the modes of that robot, pre-filled with the current
-one: pick one and send it (Gladys 5.2 or later, required by the integration).
+one: pick one and send it (a Gladys 5.2
+feature, covered by the Gladys 5.3 the integration requires).
 
 ## Troubleshooting
 

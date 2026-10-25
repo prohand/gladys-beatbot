@@ -1,6 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { MESSAGES, POST_COMMAND_REFRESH_MS, BeatbotService } from '../src/service.js';
+import {
+  MESSAGES,
+  POST_COMMAND_REFRESH_MS,
+  STATE_HEARTBEAT_MS,
+  BeatbotService,
+} from '../src/service.js';
 import { TOKEN_KEYS, normalizeConfig } from '../src/config.js';
 import { createFakeGladys } from './helpers/fakeGladys.js';
 import {
@@ -260,4 +265,52 @@ test('device_added events trigger one discovery after the burst', async (t) => {
   assert.equal(gladys.discovered.length, 2);
   assert.equal(gladys.discovered[1].length, 2);
   service.stop();
+});
+
+test('a full refresh only sends the values that changed, and the stable ones after the heartbeat', async (t) => {
+  const { service, gladys, cloud } = setup();
+  let now = 1_000_000;
+  gladys.now = () => now;
+  t.after(() => service.stop());
+  await service.start();
+  const first = gladys.states.length;
+  assert.ok(first > 0);
+
+  // Nothing moved: the reconciliation adds no history row in Gladys.
+  await service.sync({ discover: false });
+  assert.equal(gladys.states.length, first);
+
+  cloud.states['dev-1'].states['vacuum.state'] = 5;
+  await service.sync({ discover: false });
+  // The work status drives the state, run mode and dock features: only those move.
+  assert.deepEqual(
+    gladys.states
+      .slice(first)
+      .map((entry) => entry.device_feature_external_id)
+      .sort(),
+    [F('dock'), F('run-mode'), F('state')].sort(),
+  );
+
+  now += STATE_HEARTBEAT_MS;
+  const beforeHeartbeat = gladys.states.length;
+  await service.sync({ discover: false });
+  assert.equal(gladys.states.length - beforeHeartbeat, first, 'every value is re-sent once');
+});
+
+test('a device added in Gladys gets its states at once', async (t) => {
+  const { service, gladys } = setup();
+  t.after(() => service.stop());
+  await service.start();
+  const first = gladys.states.length;
+  const transports = gladys.transports.length;
+
+  // What the SDK does before calling onDeviceCreated.
+  gladys.forgetPublishedStates(DEVICE);
+  await service.publishCreated(DEVICE);
+  assert.equal(gladys.states.length - first, first, 'every value of the robot is sent again');
+  assert.equal(gladys.transports.length, transports + 1);
+
+  // An external id that is not one of ours is ignored.
+  await service.publishCreated('ext:other:device:x');
+  assert.equal(gladys.states.length - first, first);
 });
