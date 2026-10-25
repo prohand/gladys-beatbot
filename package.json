@@ -1,6 +1,6 @@
 {
   "name": "gladys-beatbot",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "private": true,
   "description": "Gladys Assistant external integration for Beatbot pool cleaning robots (Beatbot cloud).",
   "type": "module",
