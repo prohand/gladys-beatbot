@@ -68,6 +68,10 @@ gladys.onScanRequest(async () => {
 // Throwing sends a success:false acknowledgement to Gladys.
 gladys.onSetValue((device, feature, value) => service.setValue(device, feature, value));
 
+// Gladys drops the states of a device that does not exist yet: publish them as
+// soon as the user adds it (the SDK forgets what it sent for it beforehand).
+gladys.onDeviceCreated((device) => service.publishCreated(device.external_id));
+
 // --- Manifest actions: buttons in the Configuration screen -------------------
 for (const [actionKey, handler] of Object.entries(ACTIONS)) {
   gladys.onAction(actionKey, (fields) => handler(service, { fields }));
@@ -109,6 +113,9 @@ gladys.onConfigUpdated(async (newConfig) => {
 gladys.on('connected', async () => {
   try {
     config = normalizeConfig(await gladys.getConfig());
+    // Gladys may have restarted while the socket was down: re-send every
+    // value once instead of trusting what publishChangedStates remembers.
+    gladys.forgetPublishedStates();
     await service.start();
     // Nudges sent while the socket to Gladys was down were dropped.
     refreshWidgets(gladys);

@@ -73,6 +73,61 @@ test('catalog categories and capability fields require Gladys >= 5.1.0', () => {
   );
 });
 
+// The shelves of the catalog: the store keeps the keys of this vocabulary and
+// drops any other one with a mere warning, so a typo silently costs a shelf.
+// `transport`, `vehicles`, `servers` and `leisure` joined it in 2026-10.
+const CATALOG_CATEGORIES = [
+  'climate',
+  'lighting',
+  'energy',
+  'security',
+  'multimedia',
+  'appliances',
+  'environment',
+  'protocols',
+  'network',
+  'notifications',
+  'assistants',
+  'services',
+  'transport',
+  'vehicles',
+  'servers',
+  'leisure',
+];
+
+test('the catalog categories are known shelves, listed once', () => {
+  assert.equal(new Set(manifest.categories).size, manifest.categories.length);
+  for (const category of manifest.categories) {
+    assert.ok(CATALOG_CATEGORIES.includes(category), `unknown shelf "${category}"`);
+  }
+});
+
+test('the catalog keywords are 1 to 10 unique search terms of 2 to 30 characters', () => {
+  const { keywords } = manifest;
+  assert.ok(Array.isArray(keywords) && keywords.length >= 1 && keywords.length <= 10);
+  const normalized = keywords.map((keyword) => keyword.trim().toLowerCase());
+  assert.equal(new Set(normalized).size, keywords.length, 'the store compares them lowercased');
+  for (const keyword of normalized) {
+    assert.ok(keyword.length >= 2 && keyword.length <= 30, `"${keyword}" is out of bounds`);
+  }
+});
+
+test('no countries are declared: Beatbot robots are sold worldwide', () => {
+  // Declared, the catalog of an instance located elsewhere would hide the
+  // integration; the account region (EU / NA / CN) is resolved at sign-in.
+  assert.equal(manifest.countries, undefined);
+});
+
+test('keywords, countries and music require Gladys >= 5.3.0', () => {
+  // An older core rejects the whole manifest over a field it does not know.
+  if (['keywords', 'countries', 'music'].some((field) => field in manifest)) {
+    assert.ok(
+      isAtLeast(minGladysVersion(), [5, 3, 0]),
+      `got "${manifest.gladys_version}", 5.3.0 is the first release with the catalog fields`,
+    );
+  }
+});
+
 test('widget button forms require Gladys >= 5.2.0', () => {
   // An older core drops the `fields` of a widget action and relays the tap
   // without `values`: the form would silently do nothing.

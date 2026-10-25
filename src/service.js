@@ -1,9 +1,9 @@
 // -----------------------------------------------------------------------------
 // The Beatbot service: keeps the Gladys devices in step with the cloud.
 //
-//   - discovery + batched states over REST, at start-up and every
-//     `refresh_interval` minutes (reconciliation: an event missed while the
-//     link was down is caught there);
+//   - discovery + states over REST, at start-up and every `refresh_interval`
+//     minutes (reconciliation: an event missed while the link was down is
+//     caught there); only the values that changed reach Gladys;
 //   - the account event stream for everything in between, in real time;
 //   - Gladys commands -> Beatbot actions, then one state read a few seconds
 //     later (the robot does not report the new state the instant it obeys);
@@ -38,6 +38,11 @@ export const POST_COMMAND_REFRESH_MS = 5_000;
 // device_added / device_removed often come in bursts: one discovery for all.
 const DISCOVERY_DEBOUNCE_MS = 2_000;
 const MAX_BATCH = 100;
+// States go through publishChangedStates: the reconciliation timer and every
+// pushed event re-read whole devices, and Gladys writes one row per state it
+// receives (300 states a minute at most). An unchanged value is still re-sent
+// after this long, so a stable one never looks stale in Gladys.
+export const STATE_HEARTBEAT_MS = 30 * 60_000;
 
 export const MESSAGES = {
   NOT_LINKED: {
@@ -301,9 +306,8 @@ export class BeatbotService {
   async publishAll() {
     const models = [...this.devices.values()];
     const states = models.flatMap((model) => statesOf(this.gladys, model));
-    for (const batch of chunks(states, MAX_BATCH)) {
-      await this.gladys.publishStates(batch);
-    }
+    // The SDK splits it into requests of 100 states.
+    await this.gladys.publishChangedStates(states, { heartbeat: STATE_HEARTBEAT_MS });
     await this.publishTransports(models);
     for (const model of models) {
       await this.fireSceneEvents(model);
@@ -314,10 +318,28 @@ export class BeatbotService {
   async publishDevice(model) {
     const states = statesOf(this.gladys, model);
     if (states.length) {
-      await this.gladys.publishStates(states);
+      await this.gladys.publishChangedStates(states, { heartbeat: STATE_HEARTBEAT_MS });
     }
     await this.fireSceneEvents(model);
     this.onChange();
+  }
+
+  /**
+   * A device the user just added in Gladys: the states published before it
+   * existed were dropped by Gladys (and the SDK forgot them on the creation),
+   * so they are sent now rather than at the next event or reconciliation.
+   * @param {string} externalId device external id
+   */
+  async publishCreated(externalId) {
+    const model = this.devices.get(deviceIdOf(this.gladys, externalId));
+    if (!model) {
+      return;
+    }
+    const states = statesOf(this.gladys, model);
+    if (states.length) {
+      await this.gladys.publishChangedStates(states, { heartbeat: STATE_HEARTBEAT_MS });
+    }
+    await this.publishTransports([model]);
   }
 
   async publishTransports(models) {

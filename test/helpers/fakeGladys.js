@@ -41,6 +41,45 @@ export function createFakeGladys({ config = {} } = {}) {
       fake.states.push(...states);
     },
 
+    // Mirrors the SDK: a state equal to the last one accepted for its feature
+    // is skipped, unless the heartbeat elapsed; batches of 100.
+    published: new Map(),
+    now: () => Date.now(),
+
+    async publishChangedStates(states, { heartbeat } = {}) {
+      const at = fake.now();
+      const changed = states.filter((entry) => {
+        const last = fake.published.get(entry.device_feature_external_id);
+        fake.published.set(entry.device_feature_external_id, {
+          state: entry.state,
+          text: entry.text,
+          at,
+        });
+        return (
+          last === undefined ||
+          last.state !== entry.state ||
+          last.text !== entry.text ||
+          (heartbeat !== undefined && at - last.at >= heartbeat)
+        );
+      });
+      for (let start = 0; start < changed.length; start += 100) {
+        await fake.publishStates(changed.slice(start, start + 100));
+      }
+      return { success: true, count: changed.length };
+    },
+
+    forgetPublishedStates(externalId) {
+      if (externalId === undefined) {
+        fake.published.clear();
+        return;
+      }
+      for (const id of fake.published.keys()) {
+        if (id === externalId || id.startsWith(`${externalId}:`)) {
+          fake.published.delete(id);
+        }
+      }
+    },
+
     async publishTransports(entries) {
       if (entries.length > 100) {
         throw new Error('publishTransports: maximum 100 transports per request');

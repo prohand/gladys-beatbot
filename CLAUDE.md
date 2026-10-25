@@ -76,7 +76,8 @@ docs/{en,fr,de,es}.md         user documentation, re-hosted by Gladys (keep all 
 - **Scene events fire on transitions only**; the first look at a device is a baseline (a
   restart never fires "cleaning finished"). Never fire an event from a received action.
 - **No Gladys polling**: `should_poll: false`; the stream plus the `refresh_interval` timer
-  keep the states.
+  keep the states, published through `publishChangedStates` (only what changed, every value
+  again after 30 min; forgotten on every connection to Gladys).
 - **Every feature declares `min`/`max`.** The cleaning mode is a `text`/`select` whose values
   are the labels (the cloud sets the mode by label).
 - **Keys are forever**: external ids (`beatbot:<deviceId>[:<feature>]`), config, action,
@@ -92,8 +93,10 @@ docs/{en,fr,de,es}.md         user documentation, re-hosted by Gladys (keep all 
   version heading.
 - **Manifest.** Texts are `{ "en", "fr", "de", "es" }` objects (`label`, `description`,
   `placeholder`). The catalog `description` holds 10 to 100 characters per language. `scene_triggers`,
-  `scene_actions` and `widgets` require `gladys_version >= 5.1.0`. `test/manifest.test.js`
-  ties the manifest to the code (defaults, handlers, trigger options): change both together.
+  `scene_actions` and `widgets` require `gladys_version >= 5.1.0`, widget button forms 5.2.0,
+  `keywords` (declared) 5.3.0: the floor is `>=5.3.0`. No `countries`: Beatbot sells worldwide.
+  `test/manifest.test.js` ties the manifest to the code (defaults, handlers, trigger options,
+  catalog shelves and keywords): change both together.
 - **User-facing text** is `{ en, fr, de, es }` (English, French, German, Spanish), and
   `docs/en.md`, `docs/fr.md`, `docs/de.md`, `docs/es.md` stay in sync.
 - **Tests never touch the network**: `test/helpers/fakeBeatbot.js` fakes the cloud (fetch,

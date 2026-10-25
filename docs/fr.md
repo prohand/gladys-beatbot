@@ -6,6 +6,7 @@ Beatbot.
 
 ## Ce qu'il faut savoir avant de commencer
 
+- **Gladys 5.3 ou plus récent**.
 - Vos robots doivent déjà fonctionner dans l'**application Beatbot** (compte
   créé, robot appairé, Wi-Fi configuré).
 - Les robots Beatbot ne se pilotent **que par le cloud Beatbot** : Gladys a
@@ -127,8 +128,8 @@ du dernier nettoyage, avec les boutons **Démarrer**, **Pause** et **Retour**.
 
 Quand le robot permet de changer son mode de nettoyage, un bouton **Mode de
 nettoyage** ouvre un petit formulaire listant les modes de ce robot, pré-rempli
-avec le mode en cours : choisissez-en un et envoyez-le (Gladys 5.2 ou plus
-récent, requis par l'intégration).
+avec le mode en cours : choisissez-en un et envoyez-le (une
+fonction de Gladys 5.2, couverte par le Gladys 5.3 requis par l'intégration).
 
 ## Dépannage
 
